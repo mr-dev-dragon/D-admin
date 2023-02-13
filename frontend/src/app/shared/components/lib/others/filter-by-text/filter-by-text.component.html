@@ -1,0 +1,41 @@
+<!-- <div
+  class="
+"
+>
+  <div class="form__group field" style="margin-top: -15px;">
+    <input
+      (keyup)="filterByText()"
+      #search
+      class="form__field"
+      type="text"
+      id="saerchBar"
+      placeholder="Mot clés, titre du poste..."
+      aria-label="Search"
+      aria-describedby="search-addon"
+    />
+    <label for="saerchBar" class="form__label">
+      Mot clés, titre du poste...
+    </label>
+  </div>
+</div>
+
+ -->
+
+<section class="s-t-header">
+  <h1 class="s-t-d">{{'tible titale ' | titlecase}}</h1>
+
+  <div class="s-t-input-group">
+    <input
+        (keyup)="filterByText()"
+        #search
+        id="saerchBar"
+        aria-label="Search"
+        aria-describedby="search-addon"
+        type="search"
+        placeholder="Search Data..."
+     />
+    <img src="../../assets/images/search.png" alt="search icon" />
+  </div>
+
+</section>
+

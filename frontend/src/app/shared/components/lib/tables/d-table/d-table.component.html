@@ -1,0 +1,53 @@
+
+<div class="body">
+
+  <main class="s-t-main">
+
+    <s-filter-by-text
+          [inData]="data"
+          [path]="'fullname'"
+          (outData)="outDataFunction($event)"
+    ></s-filter-by-text>
+
+    <section class="s-t-body">
+      <table class="s-t-table">
+        <thead class="s-t-thead">
+          <tr class="s-t-tr">
+            <th class="s-t-th">id</th>
+            <th class="s-t-th">Customer</th>
+            <th class="s-t-th">location</th>
+            <th class="s-t-th">Order Date</th>
+            <th class="s-t-th">Status</th>
+            <th class="s-t-th">Amount</th>
+          </tr>
+        </thead>
+        <tbody #tableBody *ngFor="let i of outData ;let o = index" class="s-t-tbody">
+          <tr  [ngClass]="outData[i]? 'hide' : ''" class="s-t-tr">
+            <td class="s-t-td">{{ i?._id }}</td>
+            <td class="s-t-td">
+              <img
+                src="../../assets/images/{{ i?.img }}.jpg"
+                alt="{{ i?.img }}"
+              />
+              {{ i?.fullname }}
+            </td>
+            <td class="s-t-td">{{ i?.address }}</td>
+            <td class="s-t-td">{{ i?.date }}</td>
+            <td class="s-t-td">
+              <p class="status {{ i?.stat }}">{{ i?.stat }}</p>
+            </td>
+            <td class="s-t-td">
+              <strong>{{ i?.number }}</strong>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+
+
+    <section class="s-t-footer">
+          <h1 class="s-t-d">{{'tible footer ' | titlecase}}</h1>
+    </section>
+  </main>
+</div>
