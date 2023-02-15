@@ -22,7 +22,6 @@ export class FilterByTextComponent implements OnInit, AfterViewInit {
   constructor() {}
   ngAfterViewInit(): void {
     this.outData.emit(this.inData)
-
   }
     ngOnInit(): void {
      this.reusltdataClone = JSON.parse(JSON.stringify(this.inData))

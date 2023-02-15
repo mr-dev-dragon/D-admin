@@ -82,13 +82,20 @@ import { ScrollerModule } from 'primeng/scroller';
 import { SplitterModule } from 'primeng/splitter';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { HeaderSteperComponent } from './components/lib/others/header-steper/header-steper.component';
+import { HeaderSteperComponent } from './components/lib/others/pagination/header-steper/header-steper.component';
 import { MainSteperComponent } from './components/lib/others/main-steper/main-steper.component';
 import { SelfCloseSectionComponent } from './components/lib/sections/self-close-section/self-close-section.component';
 import { DTableComponent } from './components/lib/tables/d-table/d-table.component';
 import { FilterByTextComponent } from './components/lib/others/filter-by-text/filter-by-text.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { CustomTemplateExampleComponent } from './components/lib/others/pagination/pagination.component';
+import { SortComponent } from './components/lib/others/sort/sort.component';
+import { SDynamicTableV2Component } from './components/lib/tables/s-dynamic-table-v2/s-dynamic-table-v2.component';
+
 @NgModule({
   declarations: [
+
+    CustomTemplateExampleComponent,
     FilterByTextComponent,
     DTableComponent,
     DinamicColComponent,
@@ -122,13 +129,19 @@ import { FilterByTextComponent } from './components/lib/others/filter-by-text/fi
     HeaderSteperComponent,
     MainSteperComponent,
     SelfCloseSectionComponent,
+    SortComponent,
+    SDynamicTableV2Component,
+
 
   ],
   imports: [
+    NgxPaginationModule,
+
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
+
     ScrollerModule,
     SplitterModule,
     NgbModalModule,
@@ -187,7 +200,9 @@ import { FilterByTextComponent } from './components/lib/others/filter-by-text/fi
 
   ],
   exports: [
+    SDynamicTableV2Component,
     DTableComponent,
+    CustomTemplateExampleComponent,
     FilterByTextComponent,
     SelfCloseSectionComponent,
     MainSteperComponent,
@@ -271,4 +286,4 @@ import { FilterByTextComponent } from './components/lib/others/filter-by-text/fi
   ],
   providers: [ConfirmationService, MessageService],
 })
-export class SharedModule { }
+export class SharedModule {}

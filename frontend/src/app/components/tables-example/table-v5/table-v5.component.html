@@ -1,3 +1,33 @@
 
-<d-table [data]="data" ></d-table>
 
+
+
+
+<!--
+      <d-table  [data]="data"></d-table>
+ -->
+
+
+<container>
+  <d-table
+      [data]="data"
+      [cols]="cols"
+      [captionConfig]="captionConfig"
+      (onEditClick)="onEditClick($event)"
+      (onDetailClick)="onDetailClick($event)"
+      (onCloneClick)="onCloneClick($event)"
+      (onAddClick)="onAddClick($event)"
+      (onDelete)="onDelete($event)"
+  >
+
+    <!-- <ng-template #expandedRow let-i>
+
+      <s-table-contianer>
+
+        <app-m-card></app-m-card>
+
+      </s-table-contianer>
+
+    </ng-template>    -->
+  </d-table>
+</container>

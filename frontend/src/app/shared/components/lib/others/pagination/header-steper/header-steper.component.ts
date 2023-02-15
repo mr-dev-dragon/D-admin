@@ -10,11 +10,10 @@ export class HeaderSteperComponent {
   @Input() title: string = '';
   @Input() sutitle: string = '';
   @Input() autoForm: boolean = true;
-  
+
   activeIndex: any;
   datat: any;
   onItemclick(a: any, i: any) {
-
     if (a) {
       this.data.map((o: any, index: any) => {
         if (a.active == true) o.active = false;

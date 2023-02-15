@@ -9,8 +9,16 @@ import { ListCaptionConfig, ListHeader } from 'src/app/shared/models/List.model'
 export class TablesV2Component {
   cols: ListHeader[] = [
     {
+      field: 'Image',
+      header: 'img',
+      sort: true,
+      filter: true,
+      filterType: 'file',
+      filterData: [],
+    },
+    {
       field: 'first_name',
-      header: 'first name',
+      header: 'last name',
       sort: true,
       filter: true,
       filterType: 'text',
@@ -78,6 +86,9 @@ export class TablesV2Component {
     {
       _id: 1,
       first_name: 'Bryant',
+       Image:'assets/images/wallpaperflare.com_wallpaper.jpg',
+
+
       last_name: 'Gomes',
       email: 'bgomes0@reddit.com',
       gender: 'Male',
@@ -91,6 +102,8 @@ export class TablesV2Component {
     {
       _id: 2,
       first_name: 'Julita',
+       Image:'assets/images/wallpaperflare.com_wallpaper.jpg',
+
       last_name: 'Antoney',
       email: 'jantoney1@symantec.com',
       gender: 'Female',
@@ -104,6 +117,8 @@ export class TablesV2Component {
     {
       _id: 3,
       first_name: 'Nap',
+       Image:'assets/images/wallpaperflare.com_wallpaper.jpg',
+
       last_name: 'Hackforth',
       email: 'nhackforth2@fotki.com',
       gender: 'Male',
@@ -117,6 +132,8 @@ export class TablesV2Component {
     {
       _id: 4,
       first_name: 'Viole',
+       Image:'assets/images/wallpaperflare.com_wallpaper.jpg',
+
       last_name: 'Briiginshaw',
       email: 'vbriiginshaw3@t.co',
       gender: 'Female',
@@ -130,6 +147,8 @@ export class TablesV2Component {
     {
       _id: 5,
       first_name: 'Chere',
+       Image:'assets/images/wallpaperflare.com_wallpaper.jpg',
+
       last_name: 'Laden',
       email: 'claden4@smh.com.au',
       gender: 'Female',
@@ -143,6 +162,8 @@ export class TablesV2Component {
     {
       _id: 6,
       first_name: 'Nigel',
+       Image:'assets/images/wallpaperflare.com_wallpaper.jpg',
+
       last_name: 'Odger',
       email: 'nodger5@meetup.com',
       gender: 'Male',
@@ -156,6 +177,8 @@ export class TablesV2Component {
     {
       _id: 7,
       first_name: 'Hakim',
+       Image:'assets/images/wallpaperflare.com_wallpaper.jpg',
+
       last_name: 'Beades',
       email: 'hbeades6@ask.com',
       gender: 'Male',
@@ -169,6 +192,8 @@ export class TablesV2Component {
     {
       _id: 8,
       first_name: 'Hayley',
+       Image:'assets/images/wallpaperflare.com_wallpaper.jpg',
+
       last_name: 'Marcu',
       email: 'hmarcu7@privacy.gov.au',
       gender: 'Female',
@@ -182,6 +207,8 @@ export class TablesV2Component {
     {
       _id: 9,
       first_name: 'Alexio',
+       Image:'assets/images/wallpaperflare.com_wallpaper.jpg',
+
       last_name: 'Barge',
       email: 'abarge8@hc360.com',
       gender: 'Male',
@@ -195,6 +222,8 @@ export class TablesV2Component {
     {
       _id: 10,
       first_name: 'Lucias',
+       Image:'assets/images/wallpaperflare.com_wallpaper.jpg',
+
       last_name: 'Coch',
       email: 'lcoch9@yellowpages.com',
       gender: 'Male',
@@ -208,6 +237,8 @@ export class TablesV2Component {
     {
       _id: 11,
       first_name: 'Orren',
+       Image:'assets/images/wallpaperflare.com_wallpaper.jpg',
+
       last_name: 'Bims',
       email: 'obimsa@pinterest.com',
       gender: 'Polygender',
@@ -221,6 +252,8 @@ export class TablesV2Component {
     {
       _id: 12,
       first_name: 'Harlan',
+       Image:'assets/images/wallpaperflare.com_wallpaper.jpg',
+
       last_name: 'Casella',
       email: 'hcasellab@technorati.com',
       gender: 'Male',
@@ -234,6 +267,8 @@ export class TablesV2Component {
     {
       _id: 13,
       first_name: 'Beverie',
+       Image:'assets/images/wallpaperflare.com_wallpaper.jpg',
+
       last_name: 'Oakley',
       email: 'boakleyc@friendfeed.com',
       gender: 'Female',
@@ -247,6 +282,8 @@ export class TablesV2Component {
     {
       _id: 14,
       first_name: 'Paquito',
+       Image:'assets/images/wallpaperflare.com_wallpaper.jpg',
+
       last_name: 'Silliman',
       email: 'psillimand@nyu.edu',
       gender: 'Male',
@@ -260,6 +297,8 @@ export class TablesV2Component {
     {
       _id: 15,
       first_name: 'Reggy',
+       Image:'assets/images/wallpaperflare.com_wallpaper.jpg',
+
       last_name: 'Pane',
       email: 'rpanee@soundcloud.com',
       gender: 'Male',
@@ -273,6 +312,8 @@ export class TablesV2Component {
     {
       _id: 16,
       first_name: 'Madge',
+       Image:'assets/images/wallpaperflare.com_wallpaper.jpg',
+
       last_name: 'Caramuscia',
       email: 'mcaramusciaf@unesco.org',
       gender: 'Female',
@@ -286,6 +327,8 @@ export class TablesV2Component {
     {
       _id: 17,
       first_name: 'Scarface',
+       Image:'assets/images/wallpaperflare.com_wallpaper.jpg',
+
       last_name: 'Salling',
       email: 'ssallingg@barnesandnoble.com',
       gender: 'Male',
@@ -299,6 +342,8 @@ export class TablesV2Component {
     {
       _id: 18,
       first_name: 'Valaria',
+       Image:'assets/images/wallpaperflare.com_wallpaper.jpg',
+
       last_name: 'Sapir',
       email: 'vsapirh@hibu.com',
       gender: 'Female',
@@ -312,6 +357,8 @@ export class TablesV2Component {
     {
       _id: 19,
       first_name: 'Laure',
+       Image:'assets/images/wallpaperflare.com_wallpaper.jpg',
+
       last_name: 'Di Biaggi',
       email: 'ldibiaggii@cdbaby.com',
       gender: 'Female',
@@ -325,6 +372,8 @@ export class TablesV2Component {
     {
       _id: 20,
       first_name: 'Nappie',
+       Image:'assets/images/wallpaperflare.com_wallpaper.jpg',
+
       last_name: 'Maywood',
       email: 'nmaywoodj@statcounter.com',
       gender: 'Male',

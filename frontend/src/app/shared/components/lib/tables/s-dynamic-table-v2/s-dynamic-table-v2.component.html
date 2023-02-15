@@ -1,4 +1,3 @@
-
 {{width}}
 
 
@@ -16,8 +15,7 @@
   [(selection)]="selectedItems" [selectionMode]="captionConfig.selectionType == 'single' ? 'single' : ''"
   [globalFilterFields]="globalFilterFields">
 
-  <ng-template    pTemplate="caption"
-    *ngIf="
+  <ng-template pTemplate="caption" *ngIf="
         captionConfig.addButton ||
         captionConfig.actions?.delete ||
         captionConfig.clearTable ||
@@ -25,166 +23,144 @@
         captionConfig.displayedColumns ||
         speedDialItems.length
 
-      "
+      ">
 
-      >
+       <div class="row">
+        <div class="show-col  col-{{caprion_col_1}}"> col </div>
+        <div class="show-col  col-{{caprion_col_2}}"> col </div>
+       </div>
+
+
     <div class="row">
-      <div
-      class="inmations"
-      [ngClass]="
-      {
-           'col-11':  width < 1800 || !showothersbotens,
-           'col-10':  width > 1800 || showothersbotens
-      }"
-
-
-      >
+      <div class="inmations" [ngClass]="
+           {
+         'col-11':  width < 1800 || !showothersbotens,
+         'col-10':  width > 1800 || showothersbotens
+           }
+      ">
         <container>
-              <div class="topHeader d-flex position-relative">
-                    <button
-                          type="button"
-                          *ngIf="captionConfig.addButton && !captionConfig.addButton.menuItem"
-                          style="height: fit-content; margin-block: auto" pButton pRipple icon="pi pi-plus"
-                          class="me-2 p-button-success green"
-                          (click)="onAdd()"
-                      >
-                    </button>
-                    <div>
-                      <p-tieredMenu #menu [model]="captionConfig.addButton.menuItem" [popup]="true"
-                        [appendTo]="'body'">
-                      </p-tieredMenu>
-                    </div>
-                    <button
-                          type="button"
-                          *ngIf="captionConfig.clearTable"
-                          style="height: fit-content; margin-block: auto"
-                          pButton
-                          pRipple
-                          icon="pi pi-trash"
-                          class="p-button-danger red"
-                          (click)="showUndoDialog()"
-                          [disabled]="
-                          selectedItems.map ? !selectedItems.length : !selectedItems
-                            ">
-                    </button>
-                    <button type="button" style="width: 10rem; height: fit-content; margin-block: auto" pButton
-                    class="p-button-outlined ms-auto clear-filter p-button" icon="pi pi-filter-slash"
-                    (click)="clear(dt)">
-                    </button>
-                    <span *ngIf="captionConfig.globalFilter"
-                        class="s-Search-span p-input-icon-left ms-2"
-                        style="height: fit-content; margin-block: auto; margin-right: 7px"
-                    >
-                    <i class="pi pi-search"></i>
-                    <input pInputText type="text" class="s-Search"
+          <div class="topHeader d-flex position-relative">
+                <button type="button" *ngIf="captionConfig.addButton && !captionConfig.addButton.menuItem"
+                  style="height: fit-content; margin-block: auto" pButton pRipple icon="pi pi-plus"
+                  class="me-2 p-button-success green" (click)="onAdd()">
+                </button>
+                <div>
+                  <p-tieredMenu #menu [model]="captionConfig.addButton.menuItem" [popup]="true" [appendTo]="'body'">
+                  </p-tieredMenu>
+                </div>
+                <button
+                    type="button"
+                    *ngIf="captionConfig.clearTable"
+                    style="height: fit-content; margin-block: auto"
+                    pButton
+                    pRipple
+                    icon="pi pi-trash"
+                    class="p-button-danger red"
+                    (click)="showUndoDialog()"
+                    [disabled]="
+                      selectedItems.map ? !selectedItems.length : !selectedItems
+
+                                ">
+                </button>
+                <button type="button" style="width: 10rem; height: fit-content; margin-block: auto" pButton
+                  class="p-button-outlined ms-auto clear-filter p-button" icon="pi pi-filter-slash" (click)="clear(dt)">
+                </button>
+                <span *ngIf="captionConfig.globalFilter" class="s-Search-span p-input-icon-left ms-2"
+                  style="height: fit-content; margin-block: auto; margin-right: 7px">
+                  <i class="pi pi-search"></i>
+                  <input pInputText type="text" class="s-Search"
                     (input)="dt.filterGlobal($any($event).target.value, 'contains')"
                     [placeholder]="'Search keyword' | translate | titlecase" />
-                    </span>
-                    <p-multiSelect [appendTo]="'body'" *ngIf="captionConfig.displayedColumns" [options]="columns"
-                      [(ngModel)]="selectedColumns" [ngStyle]="{ marginBlock: 'auto' }" optionLabel="header"
-                      selectedItemsLabel="{0} columns selected" [style]="{ minWidth: '200px' }" placeholder="Choose Columns"
-                      (onChange)="test($event)">
-                    </p-multiSelect>
-              </div>
+                </span>
+                <p-multiSelect
+                   [appendTo]="'body'"
+                   *ngIf="captionConfig.displayedColumns"
+                   [options]="columns"
+                   [(ngModel)]="selectedColumns"
+                   [ngStyle]="{ marginBlock: 'auto' }"
+                   optionLabel="header"
+                   selectedItemsLabel="{0} columns selected" [style]="{ minWidth: '200px' }" placeholder="Choose Columns"
+                   (onChange)="test($event)">
+                </p-multiSelect>
+          </div>
         </container>
       </div>
-      <div
-      *ngIf="width>=1200"
-      [ngClass]="
+      <div [ngClass]="
          {
              'col-1' :  width<1800 || !showothersbotens,
-             'col-2' :  width<1800 || showothersbotens
-         }"
-
-         class="inmations"
-      style="margin: auto">
+             'col-2' :  width>1800 || showothersbotens
+         }" class="inmations" style="margin: auto">
         <container>
           <div style="height: 48px; width: 38px;" class="d-flex position-relative m-0 p-0">
-            <div
-                 style="
+            <div style="
                   height: 350px;
                   margin: auto;
                   margin-top: -7px;
                   padding: auto;
-                  position: absolute;"
-                  class="speeddial-delay-demo"
-                  (click)="showothersbotensf()"
-              >
-              <p-speedDial
-                   [model]="speedDialItems"
-                   direction="right"
-                   [transitionDelay]="80"
-                   showIcon="pi pi-bars"
-                   hideIcon="pi pi-times"
-                   buttonClassName="p-button-outlined"
-              >
+                  position: absolute;" class="speeddial-delay-demo" (click)="showothersbotensf()">
+              <p-speedDial [model]="speedDialItems" direction="right" [transitionDelay]="80" showIcon="pi pi-bars"
+                hideIcon="pi pi-times" buttonClassName="p-button-outlined">
               </p-speedDial>
             </div>
           </div>
         </container>
       </div>
     </div>
+
   </ng-template>
-  <ng-template    pTemplate="header"
-  let-columns>
+  <ng-template pTemplate="header" let-columns>
     <tr class="s-tr-header s-header-bg">
-        <th class="text-center b-s" *ngIf="
+      <th class="text-center b-s" *ngIf="
             captionConfig.selectionType === 'multiple' || captionConfig.expanded
           ">
-          <p-tableHeaderCheckbox *ngIf="captionConfig.selectionType === 'multiple'"></p-tableHeaderCheckbox>
+        <p-tableHeaderCheckbox *ngIf="captionConfig.selectionType === 'multiple'"></p-tableHeaderCheckbox>
+      </th>
+      <ng-container *ngFor="let col of columns">
+        <th *ngIf="!col.sort" pResizableColumn pReorderableColumn class="text-center">
+          {{ col.header | translate | titlecase }}
+          <p-columnFilter *ngIf="col.filter" type="text" [field]="col.field" display="menu"></p-columnFilter>
         </th>
-        <ng-container *ngFor="let col of columns">
-          <th *ngIf="!col.sort" pResizableColumn pReorderableColumn class="text-center">
-            {{ col.header | translate | titlecase }}
-            <p-columnFilter *ngIf="col.filter" type="text" [field]="col.field" display="menu"></p-columnFilter>
-          </th>
-          <th *ngIf="col.sort" pResizableColumn pReorderableColumn pSortableColumn="{{ col.field }}"
-            class="text-center header-libe-main">
+        <th *ngIf="col.sort" pResizableColumn pReorderableColumn pSortableColumn="{{ col.field }}"
+          class="text-center header-libe-main">
             <p-sortIcon [field]="col.field"></p-sortIcon>
 
-            {{ col.header | translate | titlecase }}
+          {{ col.header | translate | titlecase }}
 
-            <p-columnFilter *ngIf="
+          <p-columnFilter *ngIf="
                 col.filter &&
                 !['etatObjet', 'etatDeCreation'].includes(col.filterType)
               " [type]="col.filterType" [field]="col.field" display="menu">
-            </p-columnFilter>
+          </p-columnFilter>
 
-            <p-columnFilter [field]="col.field" matchMode="equals" display="menu" *ngIf="
+          <p-columnFilter [field]="col.field" matchMode="equals" display="menu" *ngIf="
                 col.filter &&
                 ['etatObjet', 'etatDeCreation'].includes(col.filterType)
               ">
-              <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                <p-dropdown [appendTo]="'body'" [ngModel]="value" [options]="col.filterData"
-                  (onChange)="filter($event.value)" placeholder="Any">
-                  <ng-template let-option pTemplate="item">
-                    <span [class]="'etat-objet-badge etat-' + option">
-                       {{
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <p-dropdown [appendTo]="'body'" [ngModel]="value" [options]="col.filterData"
+                (onChange)="filter($event.value)" placeholder="Any">
+                <ng-template let-option pTemplate="item">
+                  <span [class]="'etat-objet-badge etat-' + option">
+                    {{
                            option | translate | titlecase
                        }}
-                    </span>
-                  </ng-template>
-                </p-dropdown>
-              </ng-template>
-            </p-columnFilter>
-          </th>
-        </ng-container>
-        <th class="text-center" *ngIf="
+                  </span>
+                </ng-template>
+              </p-dropdown>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+      </ng-container>
+      <th class="text-center" *ngIf="
             captionConfig.actions?.clone ||
             captionConfig.actions?.detail ||
             captionConfig.actions?.edit
           ">
-          {{ "action" | translate | titlecase }}
-        </th>
+        {{ "action" | translate | titlecase }}
+      </th>
     </tr>
   </ng-template>
-  <ng-template    pTemplate="body"
-      let-rowData
-      let-ri="rowIndex"
-      let-columns="columns"
-      let-expanded="expanded"
-
-  >
+  <ng-template pTemplate="body" let-rowData let-ri="rowIndex" let-columns="columns" let-expanded="expanded">
     <tr class="s-tr-body" [pSelectableRow]="rowData" [ngClass]="rowData.cloned ? 'clonedElement' : ''"
       [class.isOpened]="this.selected == rowData._id" [class.isBlacked]="this.selected != rowData._id && !firstTime">
       <!-- #region start col -->
@@ -200,13 +176,7 @@
           ">
           <p-tableCheckbox *ngIf="captionConfig.selectionType === 'multiple'" [value]="rowData"></p-tableCheckbox>
 
-          <button
-            type="button"
-            style="margin-left: 20px"
-            *ngIf="captionConfig.expanded"
-            pButton
-            pRipple
-            type="button"
+          <button type="button" style="margin-left: 20px" *ngIf="captionConfig.expanded" pButton pRipple type="button"
             [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
             class="s-btn-action p-button-rounded me-2 mb-2 p-button-sm p-button-help action-button"
             [pRowToggler]="rowData" (click)="onClone(ri)">
@@ -220,7 +190,7 @@
         <span class="p-column-title">{{ col?.header }}</span>
         <div class="s-next">
           <ng-container *ngIf="col.filterType == 'file'">
-            <img  width="30" height="30" class="row-img" [lazyLoad]="rowData[col.field]" [defaultImage]="rowData[col.default]" />
+            <img [lazyLoad]="rowData[col.field]" [defaultImage]="rowData[col.default]" />
           </ng-container>
           <ng-container *ngIf="col.filterType == 'chips'">
             <div class="dynamic-table-chipcontainer">
@@ -279,8 +249,7 @@
       <!-- #endregion -->
     </tr>
   </ng-template>
-  <ng-template    pTemplate="rowexpansion"
-  let-rowData>
+  <ng-template pTemplate="rowexpansion" let-rowData>
     <tr *ngIf="expandedRow" class="expandedRow-tr">
       <td class="expandedRow-td" [colSpan]="
           selectedColumns.length +
@@ -296,8 +265,8 @@
                 : 0)
             : 0)
         ">
-          <ng-container *ngTemplateOutlet="expandedRow; context: { $implicit: rowData }">
-          </ng-container>
+        <ng-container *ngTemplateOutlet="expandedRow; context: { $implicit: rowData }">
+        </ng-container>
       </td>
     </tr>
     <tr *ngIf="!expandedRow">
@@ -325,7 +294,7 @@
       </td>
     </tr>
   </ng-template>
-  <ng-template    pTemplate="emptymessage">
+  <ng-template pTemplate="emptymessage">
     <tr>
       <td [colSpan]="
           selectedColumns.length +
@@ -345,8 +314,7 @@
       </td>
     </tr>
   </ng-template>
-  <ng-template    pTemplate="summary"
-  *ngIf="captionConfig.summary?.enabled">
+  <ng-template pTemplate="summary" *ngIf="captionConfig.summary?.enabled">
     <div class="flex align-items-center footer-d justify-content-between">
       {{
         $any(captionConfig).summary?.message?.replace(
