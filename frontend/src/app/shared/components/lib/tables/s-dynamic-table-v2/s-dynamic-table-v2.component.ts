@@ -336,6 +336,7 @@ export class SDynamicTableV2Component implements OnInit, OnChanges {
 
 
     });
+    
     this.widthSubject.next(window.innerWidth);
     window.addEventListener('resize', () => {
       this.widthSubject.next(window.innerWidth);

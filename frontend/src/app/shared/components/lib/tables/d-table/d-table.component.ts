@@ -16,17 +16,41 @@ import { UndoDeleteDialogService } from 'src/app/shared/services/undo-delete-dia
   changeDetection: ChangeDetectionStrategy.Default
 })
 export class DTableComponent implements OnInit {
+  zoomedImag: boolean= false;
+  zoomedImagsrc: string = '';
+  zoomedImagindex  : number = 0
+  zoomedImagModalsrc: any = '';
+  zoomedImagModalindex: number = 0
+  show_file_data: boolean = false
 
+  imageClikEvent(i: any, n: number,k?:boolean) {
+  if(!k){
+     this.zoomedImag = true;
+     this.zoomedImagsrc=i
+     this.zoomedImagindex = n
+  }else {
 
+    this.zoomedImag = false;
+    this.zoomedImagsrc = ''
+    this.zoomedImagindex = -1
+    this.show_file_data =true
+    this.zoomedImagModalsrc = i
+    this.zoomedImagModalindex = n
 
+  }
+}
 
+  imageClikEvent_Close(){
+    this.show_file_data = false
+    this.zoomedImagModalsrc = ''
+    this.zoomedImagModalindex = -1
+  }
 
-
-
-
-
-
-
+  imagemouseleaveEvent(){
+    this.zoomedImag = false;
+    this.zoomedImagsrc = ''
+    this.zoomedImagindex = -1
+  }
   showothersbotens: boolean = false;
   showothersbotensf() {
     this.showothersbotens = !this.showothersbotens;
@@ -74,12 +98,12 @@ export class DTableComponent implements OnInit {
        this.finalData = a;
     }
 
-  ngOnInit(): void {}
+
   outData: any[] = []
   ngAfterViewInit() {}
   outDataFunction(i: any) { this.outData = i}
 
-  public config: PaginationInstance = {
+  public o_config: PaginationInstance = {
     id: 'custom',
     itemsPerPage: 10,
     currentPage: 99
@@ -183,20 +207,188 @@ export class DTableComponent implements OnInit {
   constructor(
     private undoDialogService: UndoDeleteDialogService,
     public ref: DynamicDialogRef,
-    public D_config: DynamicDialogConfig,
+    public config: DynamicDialogConfig,
     public translateService: TranslateService,
     public helpers: HelpersService
-  ){}
+  ) {
+
+
+    if (this.config.data?.headers) {
+      this.captionConfig = {
+        ...this.initialCaptionConfig,
+        ...this.config.data.captionConfig,
+      };
+      this.cols = this.config.data.headers || [];
+      this.data = this.config.data.data;
+      this.selectedItems = this.data.filter((item: any) => item.selected);
+      if (
+        this.captionConfig?.selectionType == 'single' &&
+        this.selectedItems.length
+      )
+        this.selectedItems = this.selectedItems[0];
+      this.translateService
+        .get(this.config.header || '')
+        .subscribe((translation) => {
+          this.config.header = translation;
+        });
+    }
+
+  }
 
 
 
 
+    ngDoCheck() {
+      if (this.changes) {
+        this.columns = [...this.cols];
+        this.columns = [...this._selectedColumns] = this.columns.map(
+          (col: any) => {
+            let val = { ...col };
+            if (typeof val.header == 'object') {
+              if (typeof val.header.data == 'object' && val.header.data.length) {
+                val.header =
+                  val.header.data.find(
+                    (d: any) => d.language == localStorage.getItem('lang')
+                  )?.value || val.header.data[0].value;
+              } else val.header = val.header.data.value;
+            }
+            return val;
+          }
+        );
+        if (this.changes.captionConfig) {
+          const mergeCaptionConfigs = (
+            newCaptionConfig: any,
+            initConfig: any
+          ) => {
+            Object.keys(newCaptionConfig).forEach((key) => {
+              if (initConfig[key] !== undefined) {
+                if (
+                  initConfig[key] &&
+                  typeof initConfig[key] == 'object' &&
+                  !(initConfig[key] instanceof Array)
+                ) {
+                  initConfig[key] = mergeCaptionConfigs(
+                    newCaptionConfig[key],
+                    initConfig[key]
+                  );
+                } else {
+                  initConfig[key] = newCaptionConfig[key];
+                }
+              }
+            });
+            return initConfig;
+          };
+          this.captionConfig = mergeCaptionConfigs(
+            this.captionConfig,
+            this.helpers.newObject(this.initialCaptionConfig)
+          );
+        } else if (!this.captionConfig) {
+          this.captionConfig = this.initialCaptionConfig;
+        }
+        this.speedDialItems = this.initSpeedDialItems.filter((item: any) => {
+          // @ts-ignore
+          return this.captionConfig[item.id];
+        });
+        this.globalFilterFields = this.cols.map((col) => col.field);
+        this.changes = null;
+      }
+      // if (this.dataTable && this.dataTable) {
+      //   this.selectedCols.splice(
+      //     0,
+      //     this.selectedCols.length,
+      //     ...this.dataTable._columns
+      //   );
+      // }
+    }
+
+
+
+    showColumnDtaills(index: number) {
+      this.showColumn == 'up'
+        ? (this.showColumn = 'down')
+        : (this.showColumn = 'up');
+    }
+    onAdd() {
+      this.onAddClick.emit();
+    }
+    onEdit(index: number) {
+      this.onEditClick.emit(this.data[index]);
+    }
+    onDetail(index: number) {
+      this.onDetailClick.emit(this.data[index]);
+    }
+    onClone(index: number) {
+      this.onCloneClick.emit(this.data[index]);
+    }
+    test(event: any) {
+      this._selectedColumns = event.value;
+    }
+
+  ngOnInit(): void {
+      this.widthSubject.next(window.innerWidth);
+      window.addEventListener('resize', () => {
+        this.widthSubject.next(window.innerWidth);
+      });
 
 
 
 
+    this.demiRows = Math.floor(this.rows / 2);
+    this.columns = [];
+    this.cols.map((col: any) => {
+      this.columns.push({ ...col });
+    });
+    this._selectedColumns = [];
+    this.columns.map((col: any) => {
+      this._selectedColumns.push({ ...col });
+    });
+    this.exportColumns = this.columns?.map((col: any) => ({
+      title: col.header,
+      dataKey: col.field,
+    }));
 
 
+
+  }
+
+  changeState() {
+    this.onDelete.emit({
+      id: this.selectedItems.length
+        ? this.selectedItems.map((item: any) => item._id)
+        : [this.selectedItems?._id],
+      etat: 'etatObjet.archive',
+    });
+    this.selectedItems = [];
+  }
+  showUndoDialog() {
+    this.undoDialogService.showDialog((event) => {
+      if (event.result == 'timeout') {
+        this.changeState();
+      }
+    }, 2);
+  }
+  clear(table?: any) {
+    this._selectedColumns = this.columns;
+    // table.clear();
+  }
+  saveSelectedItems() {
+    this.ref.close(this.selectedItems);
+  }
+  onRowExpand(itemSelected: any) {
+    console.log('itemSelected.data', itemSelected.data);
+    this.firstTime = false;
+    this.selected = itemSelected.data._id;
+    console.log('🚀 ~ ~  this.selected', this.selected);
+  }
+
+  maxwidth(val: number) {
+    if (this.currentWidth < val) return true;
+    else return false;
+  }
+  minwidth(val: number) {
+    if (this.currentWidth > val) return true;
+    else return false;
+  }
 }
 
 
