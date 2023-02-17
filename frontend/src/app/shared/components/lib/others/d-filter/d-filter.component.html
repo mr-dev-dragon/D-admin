@@ -1,0 +1,67 @@
+
+
+
+
+
+
+
+<ng-container *ngIf="type=='text'">
+  <div class="s-t-input-group">
+    <input (keyup)="filterByText()" #search id="saerchBar" aria-label="Search" aria-describedby="search-addon"
+      type="search" placeholder="Search Data..." />
+    <img src="../../assets/images/search.png" alt="search icon" />
+  </div>
+</ng-container>
+
+
+ <ng-container *ngIf="type =='boolean'">
+
+  <label class="form-switch">
+    <input type="checkbox">
+    <i></i>
+  </label>
+
+ </ng-container>
+ <ng-container *ngIf="type=='chips'">
+
+<p-chips [(ngModel)]="valuesChips">
+  <ng-template let-item pTemplate="item">
+    {{item}} - <i class="pi pi-filter ml-2"></i>
+  </ng-template>
+</p-chips>
+
+ </ng-container>
+ <ng-container *ngIf="type=='date'">
+    <div class="field col-12 md:col-4">
+      <label for="min-max">MinMax</label>
+          <p-calendar
+          [(ngModel)]="valuesDate"
+          [minDate]="minDate"
+          [maxDate]="maxDate"
+          [readonlyInput]="true"
+            inputId="min-max">
+          </p-calendar>
+    </div>
+ </ng-container>
+ <ng-container *ngIf="type=='file'">
+
+ </ng-container>
+ <ng-container *ngIf="type=='numeric'">
+    <div class="field col-12 md:col-3">
+      <label for="valueNumeric">Temperature</label>
+
+              <p-inputNumber
+              [(ngModel)]="valueNumeric"
+              prefix=""
+              inputId="valueNumeric"
+              suffix=""
+              [min]="0"
+              [max]="40">
+              </p-inputNumber>
+    </div>
+ </ng-container>
+ <ng-container *ngIf="type=='template'">
+
+ </ng-container>
+
+

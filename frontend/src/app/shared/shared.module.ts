@@ -86,17 +86,16 @@ import { HeaderSteperComponent } from './components/lib/others/pagination/header
 import { MainSteperComponent } from './components/lib/others/main-steper/main-steper.component';
 import { SelfCloseSectionComponent } from './components/lib/sections/self-close-section/self-close-section.component';
 import { DTableComponent } from './components/lib/tables/d-table/d-table.component';
-import { FilterByTextComponent } from './components/lib/others/filter-by-text/filter-by-text.component';
+import { DFilterComponent } from './components/lib/others/d-filter/d-filter.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CustomTemplateExampleComponent } from './components/lib/others/pagination/pagination.component';
 import { SortComponent } from './components/lib/others/sort/sort.component';
 import { SDynamicTableV2Component } from './components/lib/tables/s-dynamic-table-v2/s-dynamic-table-v2.component';
-
+import { SplitButtonModule } from 'primeng/splitbutton';
 @NgModule({
   declarations: [
-
     CustomTemplateExampleComponent,
-    FilterByTextComponent,
+    DFilterComponent,
     DTableComponent,
     DinamicColComponent,
     AccordionComponent,
@@ -131,17 +130,14 @@ import { SDynamicTableV2Component } from './components/lib/tables/s-dynamic-tabl
     SelfCloseSectionComponent,
     SortComponent,
     SDynamicTableV2Component,
-
-
   ],
   imports: [
+  SplitButtonModule,
     NgxPaginationModule,
-
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
-
     ScrollerModule,
     SplitterModule,
     NgbModalModule,
@@ -197,13 +193,12 @@ import { SDynamicTableV2Component } from './components/lib/tables/s-dynamic-tabl
     NgbModule,
     NgApexchartsModule,
     TieredMenuModule,
-
   ],
   exports: [
     SDynamicTableV2Component,
     DTableComponent,
     CustomTemplateExampleComponent,
-    FilterByTextComponent,
+    DFilterComponent,
     SelfCloseSectionComponent,
     MainSteperComponent,
     HeaderSteperComponent,

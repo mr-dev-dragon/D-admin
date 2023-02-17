@@ -1,9 +1,4 @@
-// * {
-//   margin: 0;
-//   padding: 0;
-//   box-sizing: border-box;
-//   font-family: sans-serif;
-// }
+
 
 .body {
   background: url(../../../../../../assets/images/wallpaperflare.com_wallpaper.jpg)
@@ -31,14 +26,26 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-              .s-t-t{
-                font-family: random($limit: 10);
-              }
               .header-container{
-                        position: relative;
-                        gap: 5px !important;
-                        display: flex;
-                        flex-direction: row;
+                          width: fit-content;
+                          text-align: center;
+                          display: flex;
+                          flex-direction: row;
+                          position: relative;
+                          gap: 5px !important;
+                          margin: 0;
+                          padding: 0;
+                          color: #3a3a3a;
+                            .s-t-t-title{
+                              flex-shrink:0;
+                              width: max-content;
+                              text-align: center;
+                            }
+                            .s-t-t-icon{
+                              color: #222222;
+                               height: 3rem;
+                               width: 3rem;
+                            }
                          .button {
                               height: fit-content;
                               margin-block: auto;
@@ -60,10 +67,8 @@
                                     color: #ffffff;
                                     margin: 0;
                                     padding: 1px;
-                            }
-                        }
-
-
+                      }
+                  }
               }
     }
     .s-t-body {
@@ -95,7 +100,6 @@
       .s-t-table {
         position: relative;
         .show_file_data {
-
           border-radius: 7px;
           padding: 10px;
           position: absolute;
@@ -139,11 +143,65 @@
         width: 100%;
         .s-t-thead {
           .s-t-tr {
+
+
             .s-t-th {
               position: sticky;
               top: 0;
               left: 0;
-              background-color: #d5d1defe;
+              background-color: #94929a61;
+              border: #cecece9b solid 3px ;
+              border-top: none;
+              border-bottom: none;
+              &:first-child{
+               border-left: none;
+              }
+              & :last-child{
+              border-right: none;
+              }
+              .s-t-th-conteainer{
+               display: flex;
+               flex-direction: row;
+               justify-content: space-around;
+
+              .s-t-th-btn {
+                 background-color: #70707000;
+                 border: #2658b500 2px solid;
+
+                height: fit-content;
+                margin-block: auto;
+
+                padding: 10px;
+                  border-radius: 50%;
+                margin: auto;
+                align-items: center;
+                  &:hover{
+                  border: #2658b5 2px solid;
+
+                  border-radius: 50%;
+                    padding: 10px;
+                  }
+                      .s-t-th-btn-icon {
+                            font-size: 1.5rem;
+                              width: 25px !important;
+                              height: 25px !important;
+                              color: #353535;
+                              margin: 0;
+                              padding: 1px;
+
+                      }
+
+                    }
+
+              .s-t-th-label {
+                font-size: 1.5rem;
+                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                align-items: center;
+                text-align: center;
+                margin-top: 0.5rem;
+              }
+              }
+
             }
           }
         }
@@ -302,9 +360,9 @@ $p-color: rgb(38, 132, 234);
 
                        .gray{
                               background: #ba33f0;
-                                background: -moz-linear-gradient(45deg, #ea33f0 0%, #e03ce6 25%, #dc27d0 50%, #c623cc 75%, #bc1888 100%);
-                                background: -webkit-linear-gradient(45deg, #f033d0 0%, #e63cd2 25%, #dc27d9 50%, #cc23c9 75%, #a118bc 100%);
-                                background: linear-gradient(45deg, #741396 0%, #b03ce6 25%, #9a27dc 50%, #7523cc 75%, #1851bc 100%);
+                                background: -moz-linear-gradient(45deg, #d948de 0%, #e03ce6 25%, #dc48d2 50%, #bb3cbf 75%, #a92c81 100%);
+                                background: -webkit-linear-gradient(45deg, #de57c7 0%, #c953bb 25%, #d33ad1 50%, #b93cb7 75%, #a52ebd 100%);
+                                background: linear-gradient(45deg, #8432a2 0%, #994bbd 25%, #933dc5 50%, #732ebd 75%, #2658b5 100%);
                                 filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f09433', endColorstr='#bc1888', GradientType=1);
                         }
                         .green {
@@ -319,5 +377,16 @@ $p-color: rgb(38, 132, 234);
                           background: linear-gradient(45deg, #f09433 0%, #e63c58 25%, #dc2743 50%, #cc2348 75%, #bc184c 100%);
                           filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f09433', endColorstr='#bc1888', GradientType=1);
                         }
+
+
+                       .filer {
+                         background: #8d8a8e;
+                         background: -moz-linear-gradient(45deg, #776c77 0%, #3c373c 25%, #8c8a8c 50%, #d9d3d9 75%, #8a8689 100%);
+                         background: -webkit-linear-gradient(45deg, #9c989b 0%, #756b74 25%, #837983 50%, #a0979f 75%, #5f5660 100%);
+                         background: linear-gradient(45deg, #aca1b0 0%, #7a747d 25%, #a791b4 50%, #ba9ed8 75%, #8590a3 100%);
+                         filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f09433', endColorstr='#bc1888', GradientType=1);
+                       }
+
+
 
 

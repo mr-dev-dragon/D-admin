@@ -29,9 +29,9 @@ import { ProgressComponent } from 'src/app/components/others-example/progress/pr
 import { LiveMapComponent } from 'src/app/components/others-example/map-examples/live-map/live-map.component';
 import { MobileMapComponent } from 'src/app/components/others-example/map-examples/mobile-map/mobile-map.component';
 import { ReadOnlyMapComponent } from 'src/app/components/others-example/map-examples/read-only-map/read-only-map.component';
-import { TableV3Component } from 'src/app/components/tables-example/table-v3/table-v3.component';
-import { TableV4Component } from 'src/app/components/tables-example/table-v4/table-v4.component';
-import { TableV5Component } from 'src/app/components/tables-example/table-v5/table-v5.component';
+import { TableV3Component } from     'src/app/components/tables-example/table-v3/table-v3.component';
+import { TableV4Component } from     'src/app/components/tables-example/table-v4/table-v4.component';
+import { TableV5Component } from     'src/app/components/tables-example/table-v5/table-v5.component';
 export const content: Routes = [
   {
     path: 'dashboard',

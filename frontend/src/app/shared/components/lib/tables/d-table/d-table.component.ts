@@ -1,11 +1,26 @@
-import {ChangeDetectionStrategy ,Component, ViewChild, ElementRef, OnInit, Input, ContentChild, TemplateRef, Output, EventEmitter } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ViewChild,
+  ElementRef,
+  OnInit,
+  Input,
+  ContentChild,
+  TemplateRef,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Table } from 'jspdf-autotable';
 import { PaginationInstance } from 'ngx-pagination';
 import { MenuItem } from 'primeng/api';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { BehaviorSubject } from 'rxjs';
-import { ListCaptionConfig, ListHeader, OnDeleteEvent } from 'src/app/shared/models/List.model';
+import {
+  ListCaptionConfig,
+  ListHeader,
+  OnDeleteEvent,
+} from 'src/app/shared/models/List.model';
 import { HelpersService } from 'src/app/shared/services/helpers.service';
 import { UndoDeleteDialogService } from 'src/app/shared/services/undo-delete-dialog.service';
 
@@ -13,43 +28,54 @@ import { UndoDeleteDialogService } from 'src/app/shared/services/undo-delete-dia
   selector: 'd-table',
   templateUrl: './d-table.component.html',
   styleUrls: ['./d-table.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class DTableComponent implements OnInit {
-  zoomedImag: boolean= false;
+  zoomedImag: boolean = false;
   zoomedImagsrc: string = '';
-  zoomedImagindex  : number = 0
+  zoomedImagindex: number = 0;
   zoomedImagModalsrc: any = '';
-  zoomedImagModalindex: number = 0
-  show_file_data: boolean = false
+  zoomedImagModalindex: number = 0;
+  show_file_data: boolean = false;
+  dommyitems: any = [];
+  products!: any[];
 
-  imageClikEvent(i: any, n: number,k?:boolean) {
-  if(!k){
-     this.zoomedImag = true;
-     this.zoomedImagsrc=i
-     this.zoomedImagindex = n
-  }else {
+  selectedProduct: any;
 
-    this.zoomedImag = false;
-    this.zoomedImagsrc = ''
-    this.zoomedImagindex = -1
-    this.show_file_data =true
-    this.zoomedImagModalsrc = i
-    this.zoomedImagModalindex = n
 
+  // onRowSelect(event) {
+  //   this.messageService.add({
+  //     severity: 'info',
+  //     summary: 'Product Selected',
+  //     detail: event.data.name,
+  //   });
+  // }
+
+  imageClikEvent(i: any, n: number, k?: boolean) {
+    if (!k) {
+      this.zoomedImag = true;
+      this.zoomedImagsrc = i;
+      this.zoomedImagindex = n;
+    } else {
+      this.zoomedImag = false;
+      this.zoomedImagsrc = '';
+      this.zoomedImagindex = -1;
+      this.show_file_data = true;
+      this.zoomedImagModalsrc = i;
+      this.zoomedImagModalindex = n;
+    }
   }
-}
 
-  imageClikEvent_Close(){
-    this.show_file_data = false
-    this.zoomedImagModalsrc = ''
-    this.zoomedImagModalindex = -1
+  imageClikEvent_Close() {
+    this.show_file_data = false;
+    this.zoomedImagModalsrc = '';
+    this.zoomedImagModalindex = -1;
   }
 
-  imagemouseleaveEvent(){
+  imagemouseleaveEvent() {
     this.zoomedImag = false;
-    this.zoomedImagsrc = ''
-    this.zoomedImagindex = -1
+    this.zoomedImagsrc = '';
+    this.zoomedImagindex = -1;
   }
   showothersbotens: boolean = false;
   showothersbotensf() {
@@ -61,7 +87,6 @@ export class DTableComponent implements OnInit {
   width = 0;
   private widthSubject = new BehaviorSubject<number>(0);
 
-
   @Input() data: any = [];
   @Input() cols: ListHeader[] = [];
   @Input() selectedCols: any = [];
@@ -69,8 +94,8 @@ export class DTableComponent implements OnInit {
   @Input() grid: boolean = true;
   @Input() captionConfig!: ListCaptionConfig;
 
-
   @Input() get selectedColumns(): any[] {
+    console.table(this._selectedColumns);
     return this._selectedColumns;
   }
   set selectedColumns(val: any[]) {
@@ -85,40 +110,42 @@ export class DTableComponent implements OnInit {
 
   sort(direction: 'asc' | 'desc') {
     this.sortedItems = this.items.sort((a, b) => {
-      if (direction === 'asc') { return a.localeCompare(b); }
-       else { return b.localeCompare(a); }
+      if (direction === 'asc') {
+        return a.localeCompare(b);
+      } else {
+        return b.localeCompare(a);
+      }
     });
   }
 
   @ViewChild('searchInput') searchInput!: ElementRef;
   @ViewChild('tableBody') tableBody!: ElementRef;
 
-  finalData: any[]=[];
-    outDataf(a:any){
-       this.finalData = a;
-    }
+  finalData: any[] = [];
+  outDataf(a: any) {
+    this.finalData = a;
+  }
 
-
-  outData: any[] = []
+  outData: any[] = [];
   ngAfterViewInit() {}
-  outDataFunction(i: any) { this.outData = i}
+  outDataFunction(i: any) {
+    this.outData = i;
+  }
 
   public o_config: PaginationInstance = {
     id: 'custom',
     itemsPerPage: 10,
-    currentPage: 99
+    currentPage: 99,
   };
-
-
 
   @ViewChild('dt') dataTable!: Table;
   @ContentChild('expandedRow', { static: false })
-  public expandedRow!:     TemplateRef<any>;
-  @Output() onEditClick:   EventEmitter<any> = new EventEmitter();
+  public expandedRow!: TemplateRef<any>;
+  @Output() onEditClick: EventEmitter<any> = new EventEmitter();
   @Output() onDetailClick: EventEmitter<any> = new EventEmitter();
-  @Output() onCloneClick:  EventEmitter<any> = new EventEmitter();
-  @Output() onAddClick:    EventEmitter<any> = new EventEmitter();
-  @Output() onDelete:      EventEmitter<OnDeleteEvent> = new EventEmitter();
+  @Output() onCloneClick: EventEmitter<any> = new EventEmitter();
+  @Output() onAddClick: EventEmitter<any> = new EventEmitter();
+  @Output() onDelete: EventEmitter<OnDeleteEvent> = new EventEmitter();
   showColumn: string = 'up';
   columns: any[] = [];
   selectedItems: any = [];
@@ -211,8 +238,6 @@ export class DTableComponent implements OnInit {
     public translateService: TranslateService,
     public helpers: HelpersService
   ) {
-
-
     if (this.config.data?.headers) {
       this.captionConfig = {
         ...this.initialCaptionConfig,
@@ -232,106 +257,127 @@ export class DTableComponent implements OnInit {
           this.config.header = translation;
         });
     }
-
   }
 
-
-
-
-    ngDoCheck() {
-      if (this.changes) {
-        this.columns = [...this.cols];
-        this.columns = [...this._selectedColumns] = this.columns.map(
-          (col: any) => {
-            let val = { ...col };
-            if (typeof val.header == 'object') {
-              if (typeof val.header.data == 'object' && val.header.data.length) {
-                val.header =
-                  val.header.data.find(
-                    (d: any) => d.language == localStorage.getItem('lang')
-                  )?.value || val.header.data[0].value;
-              } else val.header = val.header.data.value;
-            }
-            return val;
+  ngDoCheck() {
+    if (this.changes) {
+      this.columns = [...this.cols];
+      this.columns = [...this._selectedColumns] = this.columns.map(
+        (col: any) => {
+          let val = { ...col };
+          if (typeof val.header == 'object') {
+            if (typeof val.header.data == 'object' && val.header.data.length) {
+              val.header =
+                val.header.data.find(
+                  (d: any) => d.language == localStorage.getItem('lang')
+                )?.value || val.header.data[0].value;
+            } else val.header = val.header.data.value;
           }
-        );
-        if (this.changes.captionConfig) {
-          const mergeCaptionConfigs = (
-            newCaptionConfig: any,
-            initConfig: any
-          ) => {
-            Object.keys(newCaptionConfig).forEach((key) => {
-              if (initConfig[key] !== undefined) {
-                if (
-                  initConfig[key] &&
-                  typeof initConfig[key] == 'object' &&
-                  !(initConfig[key] instanceof Array)
-                ) {
-                  initConfig[key] = mergeCaptionConfigs(
-                    newCaptionConfig[key],
-                    initConfig[key]
-                  );
-                } else {
-                  initConfig[key] = newCaptionConfig[key];
-                }
-              }
-            });
-            return initConfig;
-          };
-          this.captionConfig = mergeCaptionConfigs(
-            this.captionConfig,
-            this.helpers.newObject(this.initialCaptionConfig)
-          );
-        } else if (!this.captionConfig) {
-          this.captionConfig = this.initialCaptionConfig;
+          return val;
         }
-        this.speedDialItems = this.initSpeedDialItems.filter((item: any) => {
-          // @ts-ignore
-          return this.captionConfig[item.id];
-        });
-        this.globalFilterFields = this.cols.map((col) => col.field);
-        this.changes = null;
+      );
+
+      if (this.changes.captionConfig) {
+        const mergeCaptionConfigs = (
+          newCaptionConfig: any,
+          initConfig: any
+        ) => {
+          Object.keys(newCaptionConfig).forEach((key) => {
+            if (initConfig[key] !== undefined) {
+              if (
+                initConfig[key] &&
+                typeof initConfig[key] == 'object' &&
+                !(initConfig[key] instanceof Array)
+              ) {
+                initConfig[key] = mergeCaptionConfigs(
+                  newCaptionConfig[key],
+                  initConfig[key]
+                );
+              } else {
+                initConfig[key] = newCaptionConfig[key];
+              }
+            }
+          });
+          return initConfig;
+        };
+        this.captionConfig = mergeCaptionConfigs(
+          this.captionConfig,
+          this.helpers.newObject(this.initialCaptionConfig)
+        );
+      } else if (!this.captionConfig) {
+        this.captionConfig = this.initialCaptionConfig;
       }
-      // if (this.dataTable && this.dataTable) {
-      //   this.selectedCols.splice(
-      //     0,
-      //     this.selectedCols.length,
-      //     ...this.dataTable._columns
-      //   );
-      // }
+      this.speedDialItems = this.initSpeedDialItems.filter((item: any) => {
+        // @ts-ignore
+        return this.captionConfig[item.id];
+      });
+      this.globalFilterFields = this.cols.map((col) => col.field);
+      this.changes = null;
     }
+    // if (this.dataTable && this.dataTable) {
+    //   this.selectedCols.splice(
+    //     0,
+    //     this.selectedCols.length,
+    //     ...this.dataTable._columns
+    //   );
+    // }
+  }
 
-
-
-    showColumnDtaills(index: number) {
-      this.showColumn == 'up'
-        ? (this.showColumn = 'down')
-        : (this.showColumn = 'up');
-    }
-    onAdd() {
-      this.onAddClick.emit();
-    }
-    onEdit(index: number) {
-      this.onEditClick.emit(this.data[index]);
-    }
-    onDetail(index: number) {
-      this.onDetailClick.emit(this.data[index]);
-    }
-    onClone(index: number) {
-      this.onCloneClick.emit(this.data[index]);
-    }
-    test(event: any) {
-      this._selectedColumns = event.value;
-    }
+  showColumnDtaills(index: number) {
+    this.showColumn == 'up'
+      ? (this.showColumn = 'down')
+      : (this.showColumn = 'up');
+  }
+  onAdd() {
+    this.onAddClick.emit();
+  }
+  onEdit(index: number) {
+    this.onEditClick.emit(this.data[index]);
+  }
+  onDetail(index: number) {
+    this.onDetailClick.emit(this.data[index]);
+  }
+  onClone(index: number) {
+    this.onCloneClick.emit(this.data[index]);
+  }
+  test(event: any) {
+    this._selectedColumns = event.value;
+  }
 
   ngOnInit(): void {
+    //  this.productService
+    //    .getProductsSmall()
+    //    .then((products) => (this.products = products));
+    this.dommyitems = [
+      {
+        label: 'File',
+        icon: 'pi pi-fw pi-file',
+      },
+      {
+        label: 'Edit',
+        icon: 'pi pi-fw pi-pencil',
+      },
+      {
+        label: 'Users',
+        icon: 'pi pi-fw pi-user',
+      },
+      {
+        label: 'Events',
+        icon: 'pi pi-fw pi-calendar',
+      },
+      {
+        separator: true,
+      },
+      {
+        label: 'Quit',
+        icon: 'pi pi-fw pi-power-off',
+      },
+    ];
+
+    this.widthSubject.next(window.innerWidth);
+    window.addEventListener('resize', () => {
       this.widthSubject.next(window.innerWidth);
-      window.addEventListener('resize', () => {
-        this.widthSubject.next(window.innerWidth);
-      });
-
-
-
+    });
 
     this.demiRows = Math.floor(this.rows / 2);
     this.columns = [];
@@ -346,9 +392,6 @@ export class DTableComponent implements OnInit {
       title: col.header,
       dataKey: col.field,
     }));
-
-
-
   }
 
   changeState() {
@@ -367,6 +410,9 @@ export class DTableComponent implements OnInit {
       }
     }, 2);
   }
+
+  firstSortEvent() {}
+
   clear(table?: any) {
     this._selectedColumns = this.columns;
     // table.clear();
@@ -390,33 +436,3 @@ export class DTableComponent implements OnInit {
     else return false;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
