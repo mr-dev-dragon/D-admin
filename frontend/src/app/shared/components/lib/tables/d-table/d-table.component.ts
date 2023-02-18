@@ -31,6 +31,8 @@ import { UndoDeleteDialogService } from 'src/app/shared/services/undo-delete-dia
   changeDetection: ChangeDetectionStrategy.Default,
 })
 export class DTableComponent implements OnInit {
+
+
   zoomedImag: boolean = false;
   zoomedImagsrc: string = '';
   zoomedImagindex: number = 0;

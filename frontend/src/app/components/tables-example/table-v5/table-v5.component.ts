@@ -115,7 +115,8 @@ export class TableV5Component {
      date: "14 Mar, 2023",
      stat: "Shipped",
      number: "$210.40"
-   }, {
+   },
+   {
      _id: 1,
      img: "../../assets/images/Zinzu Chan Lee.jpg",
      fullname: "Zinzu Chan Lee",
@@ -222,7 +223,8 @@ export class TableV5Component {
      date: "14 Mar, 2023",
      stat: "Shipped",
      number: "$210.40"
-   }, {
+   },
+   {
      _id: 1,
      img: "../../assets/images/Zinzu Chan Lee.jpg",
      fullname: "Zinzu Chan Lee",
@@ -329,7 +331,8 @@ export class TableV5Component {
      date: "14 Mar, 2023",
      stat: "Shipped",
      number: "$210.40"
-   }, {
+   },
+   {
      _id: 1,
      img: "../../assets/images/Zinzu Chan Lee.jpg",
      fullname: "Zinzu Chan Lee",
@@ -436,7 +439,8 @@ export class TableV5Component {
      date: "14 Mar, 2023",
      stat: "Shipped",
      number: "$210.40"
-   }, {
+   },
+   {
      _id: 1,
      img: "../../assets/images/Zinzu Chan Lee.jpg",
      fullname: "Zinzu Chan Lee",
@@ -10094,7 +10098,7 @@ export class TableV5Component {
       header: 'date',
       sort: true,
       filter: true,
-      filterType: 'text',
+      filterType: 'date',
       filterData: [],
     },
     {

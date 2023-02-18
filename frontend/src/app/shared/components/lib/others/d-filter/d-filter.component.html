@@ -5,14 +5,24 @@
 
 
 
-<ng-container *ngIf="type=='text'">
+<ng-container *ngIf="type=='text-header'">
   <div class="s-t-input-group">
     <input (keyup)="filterByText()" #search id="saerchBar" aria-label="Search" aria-describedby="search-addon"
       type="search" placeholder="Search Data..." />
     <img src="../../assets/images/search.png" alt="search icon" />
   </div>
 </ng-container>
+<ng-container *ngIf="type=='text'">
+  <div class="s-t-input-group-s">
+    <input (keyup)="filterByText()" #search id="saerchBar" aria-label="Search" aria-describedby="search-addon"
+      type="search" placeholder="Search Data..." />
+    <img src="../../assets/images/search.png" alt="search icon" />
+  </div>
+</ng-container>
 
+<ng-container *ngIf="type=='multiSelect'">
+<h1>multiSelect</h1>
+</ng-container>
 
  <ng-container *ngIf="type =='boolean'">
 
@@ -32,16 +42,9 @@
 
  </ng-container>
  <ng-container *ngIf="type=='date'">
-    <div class="field col-12 md:col-4">
-      <label for="min-max">MinMax</label>
-          <p-calendar
-          [(ngModel)]="valuesDate"
-          [minDate]="minDate"
-          [maxDate]="maxDate"
-          [readonlyInput]="true"
-            inputId="min-max">
-          </p-calendar>
-    </div>
+                                                  <date-display (updatevalue)="updatevalue($event)" [label]="'min'" [date]="randomDates[0]"></date-display>
+                                                  <date-display (updatevalue)="updatevalue($event)" [label]="'max'" [date]="randomDates[0]"></date-display>
+                                                  <date-display (updatevalue)="updatevalue($event)" [label]="'spisifc value'" [date]="randomDates[0]"></date-display>
  </ng-container>
  <ng-container *ngIf="type=='file'">
 

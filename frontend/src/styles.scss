@@ -46,7 +46,7 @@ a {
 .table-cell-badge {
   border-radius: 5px;
   padding: 0.4rem;
-  text-transform: uppercase;
+  text-transform:capitalize;
   font-weight: 700;
   font-size: 12px;
   letter-spacing: 0.3px;
@@ -79,12 +79,12 @@ a {
 
 .lime-badge {
   background-color: #d9f99d;
-  color: #3f6212;
+  color: #e6e7e7;
 }
 
 .teal-badge {
-  background-color: #b4fdef;
-  color: #08766e;
+  background-color: #ebc474;
+  color: #ffffff;
 }
 
 .indigo-badge {
@@ -92,19 +92,28 @@ a {
   color: #4338ca;
 }
 
+
+
 .blue-badge {
-  background-color: #b3e5fc;
-  color: #23547b;
+
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  border-radius: 20px;
+  font-size: 15px;
+  padding: 7px;
+
+
+      background-color: #5fcf7b7a;
+      color: #585858;
 }
 
 .purple-badge {
-  background-color: #efd7ff;
-  color: #6d28d9;
+      background-color: #d893a3;
+        color: #b30021;
 }
 
 .gray-badge {
-  background-color: #d7d7d7;
-  color: #424242;
+  background-color: #6fcaea;
+  color: #ebebeb;
 }
 
 // #endregion
@@ -351,6 +360,7 @@ span {
           grid-row-end: span $i;
         }
       }
+
 
     }
   }

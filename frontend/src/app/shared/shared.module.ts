@@ -92,10 +92,12 @@ import { CustomTemplateExampleComponent } from './components/lib/others/paginati
 import { SortComponent } from './components/lib/others/sort/sort.component';
 import { SDynamicTableV2Component } from './components/lib/tables/s-dynamic-table-v2/s-dynamic-table-v2.component';
 import { SplitButtonModule } from 'primeng/splitbutton';
+import { DateDisplayComponent } from './components/lib/others/date-input-display/date-display.component';
 @NgModule({
   declarations: [
     CustomTemplateExampleComponent,
     DFilterComponent,
+    DateDisplayComponent,
     DTableComponent,
     DinamicColComponent,
     AccordionComponent,
@@ -195,6 +197,7 @@ import { SplitButtonModule } from 'primeng/splitbutton';
     TieredMenuModule,
   ],
   exports: [
+  DateDisplayComponent,
     SDynamicTableV2Component,
     DTableComponent,
     CustomTemplateExampleComponent,
