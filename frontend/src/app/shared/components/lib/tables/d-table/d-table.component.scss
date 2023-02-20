@@ -98,6 +98,7 @@
         text-align: left;
       }
       .s-t-table {
+
         position: relative;
         .show_file_data {
           border-radius: 7px;
@@ -105,8 +106,7 @@
           position: absolute;
           display: flex;
           flex-direction: column;
-          top: 30%;
-          left: 40%;
+
           background-color: #eae7e7;
           z-index: 20000;
 
@@ -242,7 +242,7 @@
                 border-radius: 5%;
                 vertical-align: middle;
                 z-index: 11111;
-                    cursor: move;
+                cursor: move;
                 cursor: grab;
 
                 &:active {
@@ -314,15 +314,21 @@ $p-color: rgb(38, 132, 234);
     margin: auto;
   }
   .in-custom-pagination {
+
     .in-in-custom-pagination {
+
       display: flex;
       width: 100%;
       gap: 1.3rem;
       margin: auto;
       padding: 0 0.5rem 0 0.3rem;
       background-color: transparent;
+
       .pagination-previous {
+
         .pre {
+          z-index: 1000;
+          overflow: visible;
           color: $p-color;
         }
       }
@@ -386,7 +392,6 @@ $p-color: rgb(38, 132, 234);
                          background: linear-gradient(45deg, #aca1b0 0%, #7a747d 25%, #a791b4 50%, #ba9ed8 75%, #8590a3 100%);
                          filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f09433', endColorstr='#bc1888', GradientType=1);
                        }
-
 
 
 

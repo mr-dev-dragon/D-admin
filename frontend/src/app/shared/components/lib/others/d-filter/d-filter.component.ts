@@ -6,23 +6,23 @@ import {
   OnInit,
   Output,
   ViewChild,
+  ViewEncapsulation,
 } from '@angular/core';
 @Component({
   selector: 'd-filter',
   templateUrl: './d-filter.component.html',
   styleUrls: ['./d-filter.component.scss'],
+  encapsulation: ViewEncapsulation.None, 
 })
 export class DFilterComponent implements OnInit, AfterViewInit {
-
-
   @Input() type: string | string[] = 'text';
   @Input() label: string | string[] = 'text';
   @Input() path: string | string[] = '';
   @Input() inData!: any[];
   @Output() outData = new EventEmitter();
-
-
-
+  @Input() optionLabel!: string[] | any[];
+  allmultiSelectData: any[] = [];
+  _SelectedData: any[] = [];
   update_value_form_date_input_display: Date = new Date();
   updatevalue(a: any) {
     this.update_value_form_date_input_display = a;
@@ -76,12 +76,18 @@ export class DFilterComponent implements OnInit, AfterViewInit {
     new Date('15/07/2023'),
     new Date('08/09/2021'),
   ];
+  checkIfImage(url: string): boolean {
+    const regex = /\.(jpg|png|jpeg|gif|svg|bmp|tiff|webp|raw|psd|ai)$/i;
+    return regex.test(url);
+  }
 
   constructor() {}
   ngAfterViewInit(): void {
     this.outData.emit(this.inData);
   }
   ngOnInit(): void {
+    this.allmultiSelectData = this.inData;
+
     let today = new Date();
     let month = today.getMonth();
     let year = today.getFullYear();

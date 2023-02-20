@@ -1,70 +1,169 @@
-
-
-
-
-
-
-
-<ng-container *ngIf="type=='text-header'">
+<ng-container *ngIf="type == 'text-header'">
   <div class="s-t-input-group">
-    <input (keyup)="filterByText()" #search id="saerchBar" aria-label="Search" aria-describedby="search-addon"
-      type="search" placeholder="Search Data..." />
+    <input
+      (keyup)="filterByText()"
+      #search
+      id="saerchBar"
+      aria-label="Search"
+      aria-describedby="search-addon"
+      type="search"
+      placeholder="Search Data..."
+    />
     <img src="../../assets/images/search.png" alt="search icon" />
   </div>
 </ng-container>
-<ng-container *ngIf="type=='text'">
+<ng-container *ngIf="type == 'text'">
   <div class="s-t-input-group-s">
-    <input (keyup)="filterByText()" #search id="saerchBar" aria-label="Search" aria-describedby="search-addon"
-      type="search" placeholder="Search Data..." />
+    <input
+      (keyup)="filterByText()"
+      #search
+      id="saerchBar"
+      aria-label="Search"
+      aria-describedby="search-addon"
+      type="search"
+      placeholder="Search Data..."
+    />
     <img src="../../assets/images/search.png" alt="search icon" />
   </div>
 </ng-container>
 
-<ng-container *ngIf="type=='multiSelect'">
-<h1>multiSelect</h1>
+<ng-container *ngIf="type == 'multiSelect'">
+<div class="input_multiselect_all_selected">
+
+
+
+
+  <p-multiSelect
+    [options]="allmultiSelectData"
+    [(ngModel)]="_SelectedData"
+    defaultLabel="Select a {{ label }}"
+    optionLabel="{{ optionLabel[0] }}"
+    class="s-multiSelect multiselect-custom"
+    [style]="{width: '100%'}"
+  >
+
+  <div class="template_input_data_selected">
+    <ng-template let-value pTemplate="selectedItems">
+      <div class="country-item -item-value" *ngFor="let option of _SelectedData">
+
+        <ng-container *ngIf="optionLabel[1].length">
+          <div class="itomes-selected-in-input">
+            <ng-container *ngFor="let i of optionLabel[1] ; let x = index">
+              <ng-container *ngIf="checkIfImage(option[i])">
+                <img [lazyLoad]="option[i]" [defaultImage]="'../../../../../../assets/images/logo/defaultImage.png'" />
+              </ng-container>
+              <ng-container *ngIf="!checkIfImage(option[i])">
+                <div>{{ option[i] }}</div>
+              </ng-container>
+            </ng-container>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="!optionLabel[1].length">
+          <ng-container *ngIf="checkIfImage(option[optionLabel[1]])">
+            <img [lazyLoad]="option[optionLabel[1]]"
+              [defaultImage]="'../../../../../../assets/images/logo/defaultImage.png'" />
+          </ng-container>
+          <ng-container *ngIf="!checkIfImage(option[optionLabel[1]])">
+            <div>{{ option[optionLabel[1]] }}</div>
+          </ng-container>
+        </ng-container>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- <div> __ {{ option[optionLabel[1]] }}</div> -->
+      </div>
+      <div *ngIf="!_SelectedData || _SelectedData.length === 0" class="country-placeholder">
+        Select {{label}}
+      </div>
+    </ng-template>
+  </div>
+    <ng-template let-itomsLable pTemplate="item">
+      <div class="country-item  inputmultipleSelecte">
+            <ng-container *ngIf="optionLabel[1].length">
+              <ng-container *ngFor="let i of optionLabel[1] ; let x = index">
+                  <ng-container *ngIf="checkIfImage(itomsLable[i])">
+                        <img [lazyLoad]="itomsLable[i]" [defaultImage]="'../../../../../../assets/images/logo/defaultImage.png'"/>
+                  </ng-container>
+                  <ng-container *ngIf="!checkIfImage(itomsLable[i])">
+                     <div>{{ itomsLable[i] }}</div>
+                  </ng-container>
+              </ng-container>
+            </ng-container>
+            <ng-container
+                  ontainer *ngIf="!optionLabel[1].length">
+                  <ng-container *ngIf="checkIfImage(itomsLable[optionLabel[1]])">
+                    <img [lazyLoad]="itomsLable[optionLabel[1]]" [defaultImage]="
+                                '../../../../../../assets/images/logo/defaultImage.png'
+                              " />
+                  </ng-container>
+                  <ng-container *ngIf="!checkIfImage(itomsLable[optionLabel[1]])">
+                    <div>{{ itomsLable[optionLabel[1]] }}</div>
+                  </ng-container>
+            </ng-container>
+      </div>
+    </ng-template>
+  </p-multiSelect>
+</div>
 </ng-container>
 
- <ng-container *ngIf="type =='boolean'">
-
+<ng-container *ngIf="type == 'boolean'">
   <label class="form-switch">
-    <input type="checkbox">
+    <input type="checkbox" />
     <i></i>
   </label>
-
- </ng-container>
- <ng-container *ngIf="type=='chips'">
-
-<p-chips [(ngModel)]="valuesChips">
-  <ng-template let-item pTemplate="item">
-    {{item}} - <i class="pi pi-filter ml-2"></i>
-  </ng-template>
-</p-chips>
-
- </ng-container>
- <ng-container *ngIf="type=='date'">
-                                                  <date-display (updatevalue)="updatevalue($event)" [label]="'min'" [date]="randomDates[0]"></date-display>
-                                                  <date-display (updatevalue)="updatevalue($event)" [label]="'max'" [date]="randomDates[0]"></date-display>
-                                                  <date-display (updatevalue)="updatevalue($event)" [label]="'spisifc value'" [date]="randomDates[0]"></date-display>
- </ng-container>
- <ng-container *ngIf="type=='file'">
-
- </ng-container>
- <ng-container *ngIf="type=='numeric'">
-    <div class="field col-12 md:col-3">
-      <label for="valueNumeric">Temperature</label>
-
-              <p-inputNumber
-              [(ngModel)]="valueNumeric"
-              prefix=""
-              inputId="valueNumeric"
-              suffix=""
-              [min]="0"
-              [max]="40">
-              </p-inputNumber>
-    </div>
- </ng-container>
- <ng-container *ngIf="type=='template'">
-
- </ng-container>
-
-
+</ng-container>
+<ng-container *ngIf="type == 'chips'">
+  <p-chips [(ngModel)]="valuesChips">
+    <ng-template let-item pTemplate="item">
+      {{ item }} - <i class="pi pi-filter ml-2"></i>
+    </ng-template>
+  </p-chips>
+</ng-container>
+<ng-container *ngIf="type == 'date'">
+  <date-display
+    (updatevalue)="updatevalue($event)"
+    [label]="'min'"
+    [date]="randomDates[0]"
+  ></date-display>
+  <date-display
+    (updatevalue)="updatevalue($event)"
+    [label]="'max'"
+    [date]="randomDates[0]"
+  ></date-display>
+  <date-display
+    (updatevalue)="updatevalue($event)"
+    [label]="'spisifc value'"
+    [date]="randomDates[0]"
+  ></date-display>
+</ng-container>
+<ng-container *ngIf="type == 'file'"> </ng-container>
+<ng-container *ngIf="type == 'numeric'">
+  <div class="field col-12 md:col-3">
+    <label for="valueNumeric">{{ label }}</label>
+    <p-inputNumber
+      [(ngModel)]="valueNumeric"
+      prefix=""
+      inputId="valueNumeric"
+      suffix=""
+      [min]="0"
+      [max]="40"
+    >
+    </p-inputNumber>
+  </div>
+</ng-container>
+<ng-container *ngIf="type == 'template'"> </ng-container>

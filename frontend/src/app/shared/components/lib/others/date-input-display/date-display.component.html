@@ -1,15 +1,6 @@
 <div *ngIf="displayType === 'week'"> month==> </div>
 <div *ngIf="displayType === 'time'">
-    <!-- <div class="field col-12 md:col-4">
-      <label for="timeonly">Time / 12h</label>
-      <p-calendar
-        (ngModelChange)="updateDAteValue($event)"
-        [ngModel]="dateValue"
-        [timeOnly]="true"
-        [hourFormat]="'12'"
-        inputId="timeonly"
-      ></p-calendar>
-    </div> -->
+
     <div class="field col-12 md:col-4">
       <label for="basic">{{label}}</label>
       <p-calendar    (ngModelChange)="updateDAteValue($event)" inputId="basic"[minDate]="max" [minDate]="min" [(ngModel)]="dateValue"></p-calendar>

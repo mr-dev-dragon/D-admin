@@ -4,37 +4,40 @@ export interface OnDeleteEvent {
   id: string[];
   etat: 'etatObjet.archive';
 }
+type ColorType = any
+ type Colors =
+ 'blue'
+ |'brown'
+ |'gray'
+ |'green'
+ |'indigo'
+ |'lime'
+ |'orange'
+ |'purple'
+ |'red'
+ |'teal'
+ |'yellow'
 
 export interface ListHeader {
   field: string;
   header: string;
   sort?: boolean;
   filter?: boolean;
+  optionLabel?: string | string[];
   filterType?:
-  | 'file'
-  | 'chips'
-  | 'text'
-  | 'date'
-  | 'numeric'
-  | 'boolean'
-  | 'template';
+    | 'file'
+    | 'chips'
+    | 'text'
+    | 'date'
+    | 'numeric'
+    | 'boolean'
+    | 'template'
+    | 'multiSelect';
   filterData?: [];
   pipes?: pipe[];
-  colorize?: {
-    blue?: string | string[] | { inc: string | string[] };
-    brown?: string | string[] | { inc: string | string[] };
-    gray?: string | string[] | { inc: string | string[] };
-    green?: string | string[] | { inc: string | string[] };
-    indigo?: string | string[] | { inc: string | string[] };
-    lime?: string | string[] | { inc: string | string[] };
-    orange?: string | string[] | { inc: string | string[] };
-    purple?: string | string[] | { inc: string | string[] };
-    red?: string | string[] | { inc: string | string[] };
-    teal?: string | string[] | { inc: string | string[] };
-    yellow?: string | string[] | { inc: string | string[] };
-  };
+  colorize?: Partial<Record<Colors, ColorType>>;
   colorizeStyle?: {
-    match: string | string[] | { inc: string | string[] };
+    match: ColorType;
     backgroundColor: string;
     color: string;
   }[];

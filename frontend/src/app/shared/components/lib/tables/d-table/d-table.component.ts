@@ -53,13 +53,16 @@ export class DTableComponent implements OnInit {
   //   });
   // }
 
-  imageClikEvent(i: any, n: number, k?: boolean) {
+  imageClikEvent(i: any, n: number,event:any, k?: boolean) {
     if (!k) {
       this.zoomedImag = true;
       this.zoomedImagsrc = i;
       this.zoomedImagindex = n;
     } else {
       this.zoomedImag = false;
+
+        this.left = event.clientX - 150;
+        this.top = event.clientY - 300;
       this.zoomedImagsrc = '';
       this.zoomedImagindex = -1;
       this.show_file_data = true;
@@ -137,7 +140,7 @@ export class DTableComponent implements OnInit {
   public o_config: PaginationInstance = {
     id: 'custom',
     itemsPerPage: 10,
-    currentPage: 99,
+    currentPage: 1,
   };
 
   @ViewChild('dt') dataTable!: Table;
@@ -345,8 +348,13 @@ export class DTableComponent implements OnInit {
   test(event: any) {
     this._selectedColumns = event.value;
   }
-
+    left!:number;
+    top!:number;
   ngOnInit(): void {
+
+
+
+
     //  this.productService
     //    .getProductsSmall()
     //    .then((products) => (this.products = products));

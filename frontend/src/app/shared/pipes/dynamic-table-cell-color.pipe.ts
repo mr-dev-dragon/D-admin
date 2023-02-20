@@ -22,6 +22,8 @@ export class DynamicTableCellColorPipe implements PipeTransform {
         if (val instanceof Array) {
           val.some((v: any) => value == v) && (color = key);
         } else {
+          console.log('val, valueval, valueval, valueval, value', val, value, val==value);
+
           value == val && (color = key);
         }
       }

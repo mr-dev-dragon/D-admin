@@ -488,5 +488,19 @@ span {
 
 // }
 
+
+.p-overlaypanel{
+ padding: 13px!important;
+}
+.p-overlaypanel-close {
+  color: #4f4e4e !important;
+  font-weight: 800;
+  background-color: #ffffff!important;
+  margin-top: 20px;
+  margin-right: 20px;
+  border:#4f4e4e solid;
+  padding: 4 px;
+}
+
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';

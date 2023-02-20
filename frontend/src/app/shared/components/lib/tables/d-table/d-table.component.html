@@ -38,7 +38,7 @@
           </svg>
         </button>
         <p-multiSelect *ngIf="captionConfig.displayedColumns" [appendTo]="'body'" [options]="columns"
-          [(ngModel)]="selectedColumns" [ngStyle]="{ marginBlock: 'auto' }" [optionLabel]="'header'"
+          [(ngModel)]="_selectedColumns" [ngStyle]="{ marginBlock: 'auto' }" [optionLabel]="'header'"
           selectedItemsLabel="{0} columns selected" [style]="{
               minWidth: '200px' ,
               borderRadius: '10px ',
@@ -58,15 +58,17 @@
     <!-- </container> -->
     <section class="s-t-body">
       <table class="s-t-table">
-        <div *ngIf="show_file_data" class="show_file_data">
+        <div *ngIf="show_file_data" class="show_file_data"  [style.top]="top+'px'" [style.left]="left+'px'">
           <div class="close">
             <i (click)="imageClikEvent_Close()" class="pi pi-times-circle" style="font-size: 2rem"></i>
           </div>
+
           <img class="zoomedImg" draggable="true" [lazyLoad]="zoomedImagModalsrc" />
+
         </div>
         <thead class="s-t-thead">
           <tr class="s-t-tr">
-            <th *ngFor="let col of cols" class="s-t-th">
+            <th *ngFor="let col of _selectedColumns" class="s-t-th">
                     <div class="s-t-th-conteainer">
                           <button (click)="sort.toggle($event)" class=" s-t-th-btn" type="button" label="Save"  tooltipPosition="left"  pTooltip="sort">
                                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -97,13 +99,16 @@
 </p-overlayPanel>
 <p-overlayPanel #filter [showCloseIcon]="true" [style]="{ width: '450px'}">
   <ng-template pTemplate>
+
+
+
                                     <ng-container *ngIf="col.filterType == 'boolean'">
                                       <d-filter [type]="'boolean'" [label]="'date'" [path]="col.field" [inData]="data"
                                         (outData)="outDataFunction($event)">
                                       </d-filter>
                                     </ng-container>
                                     <ng-container *ngIf="col.filterType == 'chips'">
-                                        <d-filter [type]="'date'" [label]="'chips'" [path]="col.field" [inData]="data" (outData)="outDataFunction($event)">
+                                        <d-filter [type]="'chips'" [label]="'chips'" [path]="col.field" [inData]="data" (outData)="outDataFunction($event)">
                                         </d-filter>
                                     </ng-container>
                                     <ng-container *ngIf="col.filterType == 'date'">
@@ -115,13 +120,21 @@
                                         </d-filter>
                                     </ng-container>
                                     <ng-container *ngIf="col.filterType == 'numeric'">
-                                        <d-filter [type]="'number'" [label]="'number'" [path]="col.field" [inData]="data" (outData)="outDataFunction($event)">
+                                        <d-filter [type]="'numeric'" [label]="'number'" [path]="col.field" [inData]="data" (outData)="outDataFunction($event)">
                                         </d-filter>
                                     </ng-container>
                                     <ng-container *ngIf="col.filterType == 'template'">
-                                        <d-filter [type]="'multiSelect'" [label]="'Choose'" [path]="col.field" [inData]="data" (outData)="outDataFunction($event)">
-                                        </d-filter>
+
                                     </ng-container>
+                                            <ng-container *ngIf="col.filterType == 'multiSelect'">
+                                              <d-filter
+                                                [type]="'multiSelect'"
+                                                [label]="'Choose'"
+                                                [optionLabel]="[col.field,col.optionLabel]"
+                                                [path]="col.field" [inData]="data"
+                                                (outData)="outDataFunction($event)">
+                                              </d-filter>
+                                            </ng-container>
                                     <ng-container *ngIf="col.filterType == 'text'">
                                         <d-filter [type]="'text'" [label]="'search'" [path]="col.field" [inData]="data" (outData)="outDataFunction($event)">
                                         </d-filter>
@@ -143,16 +156,16 @@
         <ng-container *ngIf="this.outData.length != 0">
           <tbody #tableBody *ngFor="let rowData of outData | paginate : o_config; let o = index" class="s-t-tbody">
             <tr [ngClass]="outData[rowData] ? 'hide' : ''" class="s-t-tr">
-              <td *ngFor="let col of cols; let p = index" class="s-t-td">
+              <td *ngFor="let col of _selectedColumns; let p = index" class="s-t-td">
                 <!-- <span class="p-column-title">{{ col?.header }}</span> -->
                 <div class="s-next">
                   <ng-container *ngIf="col.filterType == 'file'">
-                    <img (mouseenter)="imageClikEvent(rowData[col.field], o)" [lazyLoad]="rowData[col.field]"
+                    <img (mouseenter)="imageClikEvent(rowData[col.field], o,$event)" [lazyLoad]="rowData[col.field]"
                       [defaultImage]="
                         '../../../../../../assets/images/logo/defaultImage.png'
                       " />
                     <img class="zoomedImg" *ngIf="zoomedImag && o == zoomedImagindex" draggable="true"
-                      (mouseleave)="imagemouseleaveEvent()" (click)="imageClikEvent(rowData[col.field], o, true)"
+                      (mouseleave)="imagemouseleaveEvent()" (click)="imageClikEvent(rowData[col.field], o,$event, true)"
                       [lazyLoad]="zoomedImagsrc" />
                   </ng-container>
                   <ng-container *ngIf="col.filterType == 'chips'">
