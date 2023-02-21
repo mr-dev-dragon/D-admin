@@ -26,13 +26,21 @@ export interface ListHeader {
   optionLabel?: string | string[];
   filterType?:
     | 'file'
+    | 'img'
     | 'chips'
     | 'text'
     | 'date'
     | 'numeric'
     | 'boolean'
     | 'template'
-    | 'multiSelect';
+    | 'multiSelect'
+    | 'price'
+    | 'phone'
+    | 'email'
+    | 'range'
+    | '%'
+    | 'address';
+
   filterData?: [];
   pipes?: pipe[];
   colorize?: Partial<Record<Colors, ColorType>>;
@@ -67,6 +75,7 @@ export interface ListCaptionConfig {
   refreshData?: boolean;
   expanded?: expanded | null;
   addButton?: any;
+  imgPopUp?: boolean;
   selectionType?: 'single' | 'multiple';
   summary?: {
     enabled?: boolean;

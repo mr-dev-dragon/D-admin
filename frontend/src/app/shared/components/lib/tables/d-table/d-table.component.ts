@@ -43,6 +43,7 @@ export class DTableComponent implements OnInit {
   products!: any[];
 
   selectedProduct: any;
+  sortpTooltip: string = "";
 
 
   // onRowSelect(event) {
@@ -61,8 +62,24 @@ export class DTableComponent implements OnInit {
     } else {
       this.zoomedImag = false;
 
-        this.left = event.clientX - 150;
-        this.top = event.clientY - 300;
+
+
+      event.clientX > 1900
+        ? (this.left = event.clientX - 350)
+        : (this.left = event.clientX - 150);
+
+
+
+      event.clientX > 2139
+        ? (this.left = event.clientX - 450)
+        : (this.left = event.clientX - 150);
+
+
+  this.top = event.clientY - 300;
+
+
+
+
       this.zoomedImagsrc = '';
       this.zoomedImagindex = -1;
       this.show_file_data = true;

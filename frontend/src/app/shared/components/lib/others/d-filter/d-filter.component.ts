@@ -1,3 +1,4 @@
+
 import {
   AfterViewInit,
   Component,
@@ -12,7 +13,7 @@ import {
   selector: 'd-filter',
   templateUrl: './d-filter.component.html',
   styleUrls: ['./d-filter.component.scss'],
-  encapsulation: ViewEncapsulation.None, 
+  encapsulation: ViewEncapsulation.None,
 })
 export class DFilterComponent implements OnInit, AfterViewInit {
   @Input() type: string | string[] = 'text';
@@ -24,6 +25,14 @@ export class DFilterComponent implements OnInit, AfterViewInit {
   allmultiSelectData: any[] = [];
   _SelectedData: any[] = [];
   update_value_form_date_input_display: Date = new Date();
+  checkboxValue: boolean = false;
+  dateAddSpecificValueBtn: boolean = false;
+
+  range_val: number = 0;
+  rangeValuesRight: number = 80;
+  rangeValuesLeft: number = 20;
+  rangeValues: number[] = [];
+
   updatevalue(a: any) {
     this.update_value_form_date_input_display = a;
   }
@@ -87,6 +96,9 @@ export class DFilterComponent implements OnInit, AfterViewInit {
   }
   ngOnInit(): void {
     this.allmultiSelectData = this.inData;
+    this.rangeValues = [this.rangeValuesLeft, this.rangeValuesRight];
+    this.range_val < 0 ? this.range_val = 0 : '';
+    this.range_val > 100 ? (this.range_val = 100) : '';
 
     let today = new Date();
     let month = today.getMonth();
@@ -199,6 +211,7 @@ export class DFilterComponent implements OnInit, AfterViewInit {
     }
     return data;
   }
+
   removeAccent(s: any) {
     var r = s.toLowerCase();
     r = r.replace(new RegExp('-', 'g'), ' ');
@@ -215,5 +228,21 @@ export class DFilterComponent implements OnInit, AfterViewInit {
     r = r.replace(new RegExp('[ýÿ]', 'g'), 'y');
     r = r.replace(new RegExp('ç', 'g'), 'c');
     return r;
+  }
+
+  filterByNumber() {}
+
+  dateAddSpecificValueBtnF() {
+    this.dateAddSpecificValueBtn = !this.dateAddSpecificValueBtn;
+  }
+ event:any
+  handleChange(e: any) {
+ this.event= e
+
+this.rangeValuesLeft  =  e.values[0];
+this.rangeValuesRight = e.values[1];
+  }
+  rangeF() {
+    this.rangeValues = [this.rangeValuesLeft, this.rangeValuesRight];
   }
 }

@@ -490,17 +490,71 @@ span {
 
 
 .p-overlaypanel{
- padding: 13px!important;
+ padding: 0px!important;
+ border-radius: 10px 20px 20px 20px !important;
+
 }
 .p-overlaypanel-close {
-  color: #4f4e4e !important;
+  color: #888787 !important;
   font-weight: 800;
   background-color: #ffffff!important;
   margin-top: 20px;
   margin-right: 20px;
-  border:#4f4e4e solid;
+  border:#888787 solid;
   padding: 4 px;
+  &:hover{
+
+   color:rgb(97, 96, 96)7 !important;
+    margin-top: 22px;
+    margin-right: 22px;
+    border: #535353 solid;
+
+  }
 }
+
+
+//range
+.p-slider {
+
+    .p-slider-range{
+
+      color: #6d28d9 !important;
+        background: #6d28d9;
+    }
+    .p-slider-handle{
+
+      border-color: #6d28d9;
+      &:hover{
+        background-color: #6d28d9;
+      }
+    }
+}
+
+
+
+//chips
+.p-chips-token{ color: #696767a8!important;}
+.p-chips-token-icon{ color: #696767a8 ;}
+
+
+
+ .p-chips {
+   >ul {
+     width: 100% !important;
+     border: none !important;
+     background-color: rgba(216, 216, 216, 0.333) !important;
+     border-radius: 1rem !important;
+
+     &:hover {
+
+       box-shadow: none !important;
+       background-color: #fff8 !important;
+       box-shadow: 0 .1rem .4rem #0002 !important;
+     }
+   }
+ }
 
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
+
+

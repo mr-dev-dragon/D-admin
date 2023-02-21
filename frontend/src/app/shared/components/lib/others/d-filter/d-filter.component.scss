@@ -1,3 +1,8 @@
+
+
+
+
+
    .s-t-input-group {
      width: 120%;
      height: 50px;
@@ -30,10 +35,12 @@
        height: 1.2rem;
      }
    }
+
+
      .s-t-input-group-s {
        width: 100%;
        height: 50px;
-       background-color: rgba(67, 67, 67, 0.15);
+       background-color: rgba(146, 146, 146, 0.15);
        padding: 0 .8rem;
        border-radius: 1rem;
        display: flex;
@@ -208,6 +215,142 @@ flex-direction: row;
       flex-direction: row;
 }
 .itomes-selected-in-input{
+
+
+}
+
+
+
+.lai
+{
+ display: flex  ;
+ flex-direction: column;
+ gap: 10px;
+label{
+  font-size: large;
+  font-weight: bold;
+
+}
+
+}
+
+
+.checkboxValueClass
+{
+ display: flex;
+ flex-direction: row;
+ gap: 20px;
+ >div{
+
+  font-size: large;
+    font-weight: bold;
+
+ }
+
+}
+
+
+.true{
+margin-top: -5px;
+margin-bottom: 5px;
+ color: #d56061;
+ padding: 5px 10px;
+ border-radius: 7px;
+ background-color: #ffcdd2;
+}
+
+.false
+{
+margin-top: -5px;
+margin-bottom: 5px;
+color: #499b63;
+  padding: 5px 13.5px;
+  border-radius: 7px;
+  background-color: #c8e6c9;
+}
+
+
+.dateform{
+ display: flex;
+ flex-direction: column;
+
+
+margin-top: 10px;
+.date-add-a-specific-value-btn
+{
+  border: none;
+  background-color:hsl(254, 71%, 75%);
+  color: #ffffff;
+  border-radius: 7px;
+  padding: 0.2rem 0.5rem 0.1rem 0.5rem;
+
+  justify-content: center;
+  font-size:18px;
+  font-weight: bold;
+  width: 70%;
+  margin: auto;
+  margin-top: 20px;
+}
+}
+
+
+
+.range-input{
+  margin: auto;
+   width: 70px;
+   font-size: 30px;
+   padding: 10px;
+   border: none !important;
+   color: #ffffff;
+  background-color: rgba(120, 120, 120, 0.333);
+   margin: 10px;
+   &:focus{
+    border: none;
+   }
+   &:hover{
+        border: none;
+        color: #ffffff;
+        background: #9279e4;
+   }
+}
+
+.range_title{
+
+ color: #a2a2a2;
+ font-size: medium;
+ display: flex;
+ flex-direction: row;
+  span {
+      color: #785fa2;
+    }
+
+
+}
+ .range--{
+  margin-right: -20px;
+
+
+ }
+ .lai{
+  margin-bottom: -10px;
+ }
+.range-conteaner{
+      width: 100%;
+        margin-right: -20px;
+        background-color: rgba(146, 146, 146, 0.15);
+        padding: 0 0;
+        border-radius: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: .2s;
+
+        &:hover {
+          width: 100%;
+          box-shadow: none;
+          background-color: #fff8;
+          box-shadow: 0 .1rem .4rem #0002;
+        }
 
 
 }
