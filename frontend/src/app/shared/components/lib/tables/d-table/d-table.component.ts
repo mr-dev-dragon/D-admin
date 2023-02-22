@@ -9,7 +9,10 @@ import {
   TemplateRef,
   Output,
   EventEmitter,
+  Renderer2,
 } from '@angular/core';
+
+
 import { TranslateService } from '@ngx-translate/core';
 import { Table } from 'jspdf-autotable';
 import { PaginationInstance } from 'ngx-pagination';
@@ -23,7 +26,6 @@ import {
 } from 'src/app/shared/models/List.model';
 import { HelpersService } from 'src/app/shared/services/helpers.service';
 import { UndoDeleteDialogService } from 'src/app/shared/services/undo-delete-dialog.service';
-
 @Component({
   selector: 'd-table',
   templateUrl: './d-table.component.html',
@@ -31,8 +33,22 @@ import { UndoDeleteDialogService } from 'src/app/shared/services/undo-delete-dia
   changeDetection: ChangeDetectionStrategy.Default,
 })
 export class DTableComponent implements OnInit {
-
-
+  @ViewChild('dt') dataTable!: Table;
+  @ContentChild('expandedRow', { static: false })
+  @ViewChild('tableBody', { static: false })
+  tableBody!: any;
+  public expandedRow!: TemplateRef<any>;
+  @Output() onEditClick: EventEmitter<any> = new EventEmitter();
+  @Output() onDetailClick: EventEmitter<any> = new EventEmitter();
+  @Output() onCloneClick: EventEmitter<any> = new EventEmitter();
+  @Output() onAddClick: EventEmitter<any> = new EventEmitter();
+  @Output() onDelete: EventEmitter<OnDeleteEvent> = new EventEmitter();
+  @Input() data: any = [];
+  @Input() cols: ListHeader[] = [];
+  @Input() selectedCols: any = [];
+  @Input() rows: any = 10;
+  @Input() grid: boolean = true;
+  @Input() captionConfig!: ListCaptionConfig;
   zoomedImag: boolean = false;
   zoomedImagsrc: string = '';
   zoomedImagindex: number = 0;
@@ -41,133 +57,8 @@ export class DTableComponent implements OnInit {
   show_file_data: boolean = false;
   dommyitems: any = [];
   products!: any[];
-
   selectedProduct: any;
-  sortpTooltip: string = "";
-
-
-  // onRowSelect(event) {
-  //   this.messageService.add({
-  //     severity: 'info',
-  //     summary: 'Product Selected',
-  //     detail: event.data.name,
-  //   });
-  // }
-
-  imageClikEvent(i: any, n: number,event:any, k?: boolean) {
-    if (!k) {
-      this.zoomedImag = true;
-      this.zoomedImagsrc = i;
-      this.zoomedImagindex = n;
-    } else {
-      this.zoomedImag = false;
-
-
-
-      event.clientX > 1900
-        ? (this.left = event.clientX - 350)
-        : (this.left = event.clientX - 150);
-
-
-
-      event.clientX > 2139
-        ? (this.left = event.clientX - 450)
-        : (this.left = event.clientX - 150);
-
-
-  this.top = event.clientY - 300;
-
-
-
-
-      this.zoomedImagsrc = '';
-      this.zoomedImagindex = -1;
-      this.show_file_data = true;
-      this.zoomedImagModalsrc = i;
-      this.zoomedImagModalindex = n;
-    }
-  }
-
-  imageClikEvent_Close() {
-    this.show_file_data = false;
-    this.zoomedImagModalsrc = '';
-    this.zoomedImagModalindex = -1;
-  }
-
-  imagemouseleaveEvent() {
-    this.zoomedImag = false;
-    this.zoomedImagsrc = '';
-    this.zoomedImagindex = -1;
-  }
-  showothersbotens: boolean = false;
-  showothersbotensf() {
-    this.showothersbotens = !this.showothersbotens;
-  }
-
-  caprion_col_1!: number;
-  caprion_col_2!: number;
-  width = 0;
-  private widthSubject = new BehaviorSubject<number>(0);
-
-  @Input() data: any = [];
-  @Input() cols: ListHeader[] = [];
-  @Input() selectedCols: any = [];
-  @Input() rows: any = 10;
-  @Input() grid: boolean = true;
-  @Input() captionConfig!: ListCaptionConfig;
-
-  @Input() get selectedColumns(): any[] {
-    console.table(this._selectedColumns);
-    return this._selectedColumns;
-  }
-  set selectedColumns(val: any[]) {
-    //restore original order
-    this._selectedColumns = this.columns.filter((col: any) => {
-      return val.includes(col);
-    });
-  }
-
-  @Input() items: string[] = [];
-  sortedItems: string[] = [];
-
-  sort(direction: 'asc' | 'desc') {
-    this.sortedItems = this.items.sort((a, b) => {
-      if (direction === 'asc') {
-        return a.localeCompare(b);
-      } else {
-        return b.localeCompare(a);
-      }
-    });
-  }
-
-  @ViewChild('searchInput') searchInput!: ElementRef;
-  @ViewChild('tableBody') tableBody!: ElementRef;
-
-  finalData: any[] = [];
-  outDataf(a: any) {
-    this.finalData = a;
-  }
-
-  outData: any[] = [];
-  ngAfterViewInit() {}
-  outDataFunction(i: any) {
-    this.outData = i;
-  }
-
-  public o_config: PaginationInstance = {
-    id: 'custom',
-    itemsPerPage: 10,
-    currentPage: 1,
-  };
-
-  @ViewChild('dt') dataTable!: Table;
-  @ContentChild('expandedRow', { static: false })
-  public expandedRow!: TemplateRef<any>;
-  @Output() onEditClick: EventEmitter<any> = new EventEmitter();
-  @Output() onDetailClick: EventEmitter<any> = new EventEmitter();
-  @Output() onCloneClick: EventEmitter<any> = new EventEmitter();
-  @Output() onAddClick: EventEmitter<any> = new EventEmitter();
-  @Output() onDelete: EventEmitter<OnDeleteEvent> = new EventEmitter();
+  sortpTooltip: string = '';
   showColumn: string = 'up';
   columns: any[] = [];
   selectedItems: any = [];
@@ -177,6 +68,13 @@ export class DTableComponent implements OnInit {
   currentWidth: number = window.innerWidth;
   showshowCurrentPageReport: boolean = true;
   currentPageReportTemplate: string = '{first} to {last}';
+  checked: boolean = false;
+  accorditoinTableRowBtnIcon: boolean|null = null;
+
+  accorditoinTableRowBtnIconF(a?:any){
+      
+      this.accorditoinTableRowBtnIcon= ! this.accorditoinTableRowBtnIcon
+  }
   initSpeedDialItems: MenuItem[] = [
     {
       id: 'csv',
@@ -229,6 +127,7 @@ export class DTableComponent implements OnInit {
   exportColumns: any[] = [];
   changes: any = null;
   regex = /\{\{\s*data\.length\s*\}\}/g;
+
   initialCaptionConfig: ListCaptionConfig = {
     globalFilter: true,
     csv: false,
@@ -240,6 +139,7 @@ export class DTableComponent implements OnInit {
     refreshData: false,
     addButton: false,
     expanded: null,
+    sort: false,
     selectionType: 'single',
     summary: {
       enabled: true,
@@ -258,7 +158,8 @@ export class DTableComponent implements OnInit {
     public ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
     public translateService: TranslateService,
-    public helpers: HelpersService
+    public helpers: HelpersService,
+    private renderer: Renderer2
   ) {
     if (this.config.data?.headers) {
       this.captionConfig = {
@@ -280,6 +181,165 @@ export class DTableComponent implements OnInit {
         });
     }
   }
+  ngOnInit(): void {
+    //  this.productService
+    //    .getProductsSmall()
+    //    .then((products) => (this.products = products));
+    this.dommyitems = [
+      {
+        label: 'File',
+        icon: 'pi pi-fw pi-file',
+      },
+      {
+        label: 'Edit',
+        icon: 'pi pi-fw pi-pencil',
+      },
+      {
+        label: 'Users',
+        icon: 'pi pi-fw pi-user',
+      },
+      {
+        label: 'Events',
+        icon: 'pi pi-fw pi-calendar',
+      },
+      {
+        separator: true,
+      },
+      {
+        label: 'Quit',
+        icon: 'pi pi-fw pi-power-off',
+      },
+    ];
+    this.widthSubject.next(window.innerWidth);
+    window.addEventListener('resize', () => {
+      this.widthSubject.next(window.innerWidth);
+    });
+    this.demiRows = Math.floor(this.rows / 2);
+    this.columns = [];
+    this.cols.map((col: any) => {
+      this.columns.push({ ...col });
+    });
+    this._selectedColumns = [];
+    this.columns.map((col: any) => {
+      this._selectedColumns.push({ ...col });
+    });
+    this.exportColumns = this.columns?.map((col: any) => ({
+      title: col.header,
+      dataKey: col.field,
+    }));
+  }
+  tableBodyTotalHeight: any;
+  tableBodyTotalWidth: any;
+
+  ngAfterViewInit() {
+    const divElement = this.tableBody.nativeElement;
+    this.tableBodyTotalHeight =
+      this.renderer.selectRootElement(divElement).clientHeight;
+    this.tableBodyTotalWidth =
+      this.renderer.selectRootElement(divElement).clientWidth;
+
+    console.log(
+      `The width of the div is ${this.tableBodyTotalHeight}px and its height is ${this.tableBodyTotalWidth}px`
+    );
+  }
+
+  imageClikEvent(i: any, n: number, event: any, k?: boolean) {
+    if (!k) {
+      this.zoomedImag = true;
+      this.zoomedImagsrc = i;
+      this.zoomedImagindex = n;
+    } else {
+      this.zoomedImag = false;
+
+      event.clientX > 2450
+        ? (this.left = event.clientX - 800)
+        : event.clientX > 2400
+        ? (this.left = event.clientX - 750)
+        : event.clientX > 2350
+        ? (this.left = event.clientX - 700)
+        : event.clientX > 2300
+        ? (this.left = event.clientX - 650)
+        : event.clientX > 2250
+        ? (this.left = event.clientX - 600)
+        : event.clientX > 2200
+        ? (this.left = event.clientX - 550)
+        : event.clientX > 2150
+        ? (this.left = event.clientX - 500)
+        : event.clientX > 2100
+        ? (this.left = event.clientX - 450)
+        : event.clientX > 2050
+        ? (this.left = event.clientX - 400)
+        : event.clientX > 2000
+        ? (this.left = event.clientX - 350)
+        : event.clientX > 1950
+        ? (this.left = event.clientX - 300)
+        : event.clientX > 1900
+        ? (this.left = event.clientX - 250)
+        : event.clientX > 1800
+        ? (this.left = event.clientX - 200)
+        : (this.left = event.clientX - 200);
+      this.top = event.clientY - 300;
+      this.zoomedImagsrc = '';
+      this.zoomedImagindex = -1;
+      this.show_file_data = true;
+      this.zoomedImagModalsrc = i;
+      this.zoomedImagModalindex = n;
+    }
+  }
+  imageClikEvent_Close() {
+    this.show_file_data = false;
+    this.zoomedImagModalsrc = '';
+    this.zoomedImagModalindex = -1;
+  }
+  imagemouseleaveEvent() {
+    this.zoomedImag = false;
+    this.zoomedImagsrc = '';
+    this.zoomedImagindex = -1;
+  }
+  showothersbotens: boolean = false;
+  showothersbotensf() {
+    this.showothersbotens = !this.showothersbotens;
+  }
+  caprion_col_1!: number;
+  caprion_col_2!: number;
+  width = 0;
+  private widthSubject = new BehaviorSubject<number>(0);
+  @Input() get selectedColumns(): any[] {
+    console.table(this._selectedColumns);
+    return this._selectedColumns;
+  }
+  set selectedColumns(val: any[]) {
+    //restore original order
+    this._selectedColumns = this.columns.filter((col: any) => {
+      return val.includes(col);
+    });
+  }
+  @Input() items: string[] = [];
+  sortedItems: string[] = [];
+  sort(direction: 'asc' | 'desc') {
+    this.sortedItems = this.items.sort((a, b) => {
+      if (direction === 'asc') {
+        return a.localeCompare(b);
+      } else {
+        return b.localeCompare(a);
+      }
+    });
+  }
+
+  finalData: any[] = [];
+  outDataf(a: any) {
+    this.finalData = a;
+  }
+  outData: any[] = [];
+
+  outDataFunction(i: any) {
+    this.outData = i;
+  }
+  public o_config: PaginationInstance = {
+    id: 'custom',
+    itemsPerPage: 10,
+    currentPage: 1,
+  };
 
   ngDoCheck() {
     if (this.changes) {
@@ -298,7 +358,6 @@ export class DTableComponent implements OnInit {
           return val;
         }
       );
-
       if (this.changes.captionConfig) {
         const mergeCaptionConfigs = (
           newCaptionConfig: any,
@@ -344,7 +403,6 @@ export class DTableComponent implements OnInit {
     //   );
     // }
   }
-
   showColumnDtaills(index: number) {
     this.showColumn == 'up'
       ? (this.showColumn = 'down')
@@ -365,61 +423,8 @@ export class DTableComponent implements OnInit {
   test(event: any) {
     this._selectedColumns = event.value;
   }
-    left!:number;
-    top!:number;
-  ngOnInit(): void {
-
-
-
-
-    //  this.productService
-    //    .getProductsSmall()
-    //    .then((products) => (this.products = products));
-    this.dommyitems = [
-      {
-        label: 'File',
-        icon: 'pi pi-fw pi-file',
-      },
-      {
-        label: 'Edit',
-        icon: 'pi pi-fw pi-pencil',
-      },
-      {
-        label: 'Users',
-        icon: 'pi pi-fw pi-user',
-      },
-      {
-        label: 'Events',
-        icon: 'pi pi-fw pi-calendar',
-      },
-      {
-        separator: true,
-      },
-      {
-        label: 'Quit',
-        icon: 'pi pi-fw pi-power-off',
-      },
-    ];
-
-    this.widthSubject.next(window.innerWidth);
-    window.addEventListener('resize', () => {
-      this.widthSubject.next(window.innerWidth);
-    });
-
-    this.demiRows = Math.floor(this.rows / 2);
-    this.columns = [];
-    this.cols.map((col: any) => {
-      this.columns.push({ ...col });
-    });
-    this._selectedColumns = [];
-    this.columns.map((col: any) => {
-      this._selectedColumns.push({ ...col });
-    });
-    this.exportColumns = this.columns?.map((col: any) => ({
-      title: col.header,
-      dataKey: col.field,
-    }));
-  }
+  left!: number;
+  top!: number;
 
   changeState() {
     this.onDelete.emit({
@@ -437,9 +442,7 @@ export class DTableComponent implements OnInit {
       }
     }, 2);
   }
-
   firstSortEvent() {}
-
   clear(table?: any) {
     this._selectedColumns = this.columns;
     // table.clear();
@@ -453,7 +456,6 @@ export class DTableComponent implements OnInit {
     this.selected = itemSelected.data._id;
     console.log('🚀 ~ ~  this.selected', this.selected);
   }
-
   maxwidth(val: number) {
     if (this.currentWidth < val) return true;
     else return false;
@@ -461,5 +463,9 @@ export class DTableComponent implements OnInit {
   minwidth(val: number) {
     if (this.currentWidth > val) return true;
     else return false;
+  }
+  checkIfImage(url: string): boolean {
+    const regex = /\.(jpg|png|jpeg|gif|svg|bmp|tiff|webp|raw|psd|ai)$/i;
+    return regex.test(url);
   }
 }

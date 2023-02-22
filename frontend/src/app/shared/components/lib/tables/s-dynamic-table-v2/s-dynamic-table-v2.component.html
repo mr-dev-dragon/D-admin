@@ -10,10 +10,20 @@
     rows * 3,
     rows * 4,
     rows * 5
-  ]" dataKey="_id" [resizableColumns]="true" class="table table-striped" columnResizeMode="fit"
-  [styleClass]="grid ? 'p-datatable-gridlines s-paginator' : 's-paginator'" [reorderableColumns]="true"
-  [(selection)]="selectedItems" [selectionMode]="captionConfig.selectionType == 'single' ? 'single' : ''"
-  [globalFilterFields]="globalFilterFields">
+  ]"
+
+
+      dataKey="_id"
+      [resizableColumns]="true"
+      class="table table-striped"
+      columnResizeMode="fit"
+      [styleClass]="grid ? 'p-datatable-gridlines s-paginator' : 's-paginator'"
+      [reorderableColumns]="true"
+      [(selection)]="selectedItems"
+      [selectionMode]="captionConfig.selectionType == 'single' ? 'single' : ''"
+      [globalFilterFields]="globalFilterFields"
+
+  >
 
   <ng-template pTemplate="caption" *ngIf="
         captionConfig.addButton ||

@@ -16,79 +16,87 @@
   </div>
 </ng-container>
 <ng-container *ngIf="type == 'multiSelect'">
-  <div class="input_multiselect_all_selected">
+  <div class="lai">
+        <div class="row"></div>
+        <div class="row"></div>
+        <div class="row"></div>
+        <div class="input_multiselect_all_selected">
 
 
 
 
-    <p-multiSelect [options]="allmultiSelectData" [(ngModel)]="_SelectedData" defaultLabel="Select a {{ label }}"
-      optionLabel="{{ optionLabel[0] }}" class="s-multiSelect multiselect-custom" [style]="{width: '100%'}">
+          <p-multiSelect [options]="allmultiSelectData" [(ngModel)]="_SelectedData" defaultLabel="Select a {{ label }}"
+            optionLabel="{{ optionLabel[0] }}" class="s-multiSelect multiselect-custom" [style]="{width: '100%'}">
 
-      <div class="template_input_data_selected">
-        <ng-template let-value pTemplate="selectedItems">
-          <div class="country-item -item-value" *ngFor="let option of _SelectedData">
+            <div class="template_input_data_selected">
+              <ng-template let-value pTemplate="selectedItems">
+                <div class="country-item -item-value" *ngFor="let option of _SelectedData">
 
-            <ng-container *ngIf="optionLabel[1].length">
+                  <ng-container *ngIf="optionLabel[1].length">
 
-              <div class="itomes-selected-in-input">
-                <ng-container *ngFor="let i of optionLabel[1] ; let x = index">
-                  <ng-container *ngIf="checkIfImage(option[x])">
-                    <img [lazyLoad]="option[i]"
-                      [defaultImage]="'../../../../../../assets/images/logo/defaultImage.png'" />
+                    <div class="itomes-selected-in-input">
+                      <ng-container *ngFor="let i of optionLabel[1] ; let x = index">
+                        <ng-container *ngIf="checkIfImage(option[x])">
+                          <img [lazyLoad]="option[i]"
+                            [defaultImage]="'../../../../../../assets/images/logo/defaultImage.png'" />
+                        </ng-container>
+                        <ng-container *ngIf="!checkIfImage(option[x])">
+                          <div>{{ option[x] }}</div>
+                        </ng-container>
+                      </ng-container>
+                    </div>
                   </ng-container>
-                  <ng-container *ngIf="!checkIfImage(option[x])">
-                    <div>{{ option[x] }}</div>
+
+                  <ng-container *ngIf="!optionLabel[1].length">
+
+                    <ng-container *ngIf="checkIfImage(option[optionLabel[1]])">
+                      <img [lazyLoad]="option[optionLabel[1]]"
+                        [defaultImage]="'../../../../../../assets/images/logo/defaultImage.png'" />
+                    </ng-container>
+                    <ng-container *ngIf="!checkIfImage(option[optionLabel[1]])">
+                      <div>{{ option[optionLabel[1]] }}</div>
+                    </ng-container>
+                  </ng-container>
+                </div>
+                <div *ngIf="!_SelectedData || _SelectedData.length === 0" class="country-placeholder">
+                  Select {{label}}
+                </div>
+              </ng-template>
+            </div>
+            <ng-template let-itomsLable pTemplate="item">
+              <div class="country-item  inputmultipleSelecte">
+                <ng-container *ngIf="optionLabel[1].length">
+                  <ng-container *ngFor="let i of optionLabel[1] ; let x = index">
+                    <ng-container *ngIf="checkIfImage(itomsLable[i])">
+                      <img [lazyLoad]="itomsLable[i]"
+                        [defaultImage]="'../../../../../../assets/images/logo/defaultImage.png'" />
+                    </ng-container>
+                    <ng-container *ngIf="!checkIfImage(itomsLable[i])">
+                      <div> {{ itomsLable[i] }}</div>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+                <ng-container ontainer *ngIf="!optionLabel[1].length">
+                  <ng-container *ngIf="checkIfImage(itomsLable[optionLabel[1]])">
+                    <img [lazyLoad]="itomsLable[optionLabel[1]]" [defaultImage]="
+                                      '../../../../../../assets/images/logo/defaultImage.png'
+                                    " />
+                  </ng-container>
+                  <ng-container *ngIf="!checkIfImage(itomsLable[optionLabel[1]])">
+                    <div> {{ itomsLable[optionLabel[1]] }}</div>
                   </ng-container>
                 </ng-container>
               </div>
-            </ng-container>
-
-            <ng-container *ngIf="!optionLabel[1].length">
-
-              <ng-container *ngIf="checkIfImage(option[optionLabel[1]])">
-                <img [lazyLoad]="option[optionLabel[1]]"
-                  [defaultImage]="'../../../../../../assets/images/logo/defaultImage.png'" />
-              </ng-container>
-              <ng-container *ngIf="!checkIfImage(option[optionLabel[1]])">
-                <div>{{ option[optionLabel[1]] }}</div>
-              </ng-container>
-            </ng-container>
-          </div>
-          <div *ngIf="!_SelectedData || _SelectedData.length === 0" class="country-placeholder">
-            Select {{label}}
-          </div>
-        </ng-template>
-      </div>
-      <ng-template let-itomsLable pTemplate="item">
-        <div class="country-item  inputmultipleSelecte">
-          <ng-container *ngIf="optionLabel[1].length">
-            <ng-container *ngFor="let i of optionLabel[1] ; let x = index">
-              <ng-container *ngIf="checkIfImage(itomsLable[i])">
-                <img [lazyLoad]="itomsLable[i]"
-                  [defaultImage]="'../../../../../../assets/images/logo/defaultImage.png'" />
-              </ng-container>
-              <ng-container *ngIf="!checkIfImage(itomsLable[i])">
-                <div> {{ itomsLable[i] }}</div>
-              </ng-container>
-            </ng-container>
-          </ng-container>
-          <ng-container ontainer *ngIf="!optionLabel[1].length">
-            <ng-container *ngIf="checkIfImage(itomsLable[optionLabel[1]])">
-              <img [lazyLoad]="itomsLable[optionLabel[1]]" [defaultImage]="
-                                '../../../../../../assets/images/logo/defaultImage.png'
-                              " />
-            </ng-container>
-            <ng-container *ngIf="!checkIfImage(itomsLable[optionLabel[1]])">
-              <div> {{ itomsLable[optionLabel[1]] }}</div>
-            </ng-container>
-          </ng-container>
+            </ng-template>
+          </p-multiSelect>
         </div>
-      </ng-template>
-    </p-multiSelect>
-  </div>
+    </div>
 </ng-container>
 <ng-container *ngIf="type == 'boolean'">
-  <div class="lai">
+<div class="lai ">
+<div class="row"></div>
+<div class="row"></div>
+
     <label for="checkboxValue">{{ label }}</label>
     <div class="checkboxValueClass">
       <div>

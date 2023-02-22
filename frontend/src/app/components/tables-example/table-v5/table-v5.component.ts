@@ -2063,6 +2063,7 @@ export class TableV5Component {
   ];
 
   cols: ListHeader[] = [
+
     {
       field: 'img',
       header: 'img',
@@ -2072,6 +2073,7 @@ export class TableV5Component {
 
       filterData: [],
     },
+
     {
       field: 'fullname',
       header: 'fullname',
@@ -2080,15 +2082,15 @@ export class TableV5Component {
       filterType: 'text',
       filterData: [],
     },
-    // {
-    //   field: 'address',
-    //   header: 'address',
-    //   sort: true,
-    //   filter: true,
-    //   filterType: 'text',
-    //   filterData: [],
-    //   colorize: { blue: 'Kathmandu' },
-    // },
+    {
+      field: 'address',
+      header: 'address',
+      sort: true,
+      filter: true,
+      filterType: 'text',
+      filterData: [],
+      colorize: { blue: 'Kathmandu' },
+    },
 
     {
       field: 'range',
@@ -2142,21 +2144,22 @@ export class TableV5Component {
     },
     {
       field: 'templet',
-      header: 'templet',
+      header: 'list',
       sort: true,
+      templatePath:['category','img','age'],
       filter: true,
       filterType: 'multiSelect',
       optionLabel: ['img', 'fullname'],
       filterData: [],
     },
-    // {
-    //   field: 'stat',
-    //   header: 'stat',
-    //   sort: true,
-    //   filter: true,
-    //   filterType: 'text',
-    //   filterData: [],
-    // },
+    {
+      field: 'stat',
+      header: 'stat',
+      sort: true,
+      filter: true,
+      filterType: 'text',
+      filterData: [],
+    },
 
     {
       field: 'number',
@@ -2451,6 +2454,7 @@ export class TableV5Component {
     refreshData: true,
     addButton: true,
     imgPopUp: true,
+    trAccordion:true,
     selectionType: 'multiple',
     summary: {
       enabled: true,

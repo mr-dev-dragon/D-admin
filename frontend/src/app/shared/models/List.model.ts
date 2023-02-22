@@ -1,3 +1,4 @@
+import { TempletesV1Component } from './../../components/templetes-example/templetes-v1/templetes-v1.component';
 import { pipe } from '../pipes/generic.pipe';
 
 export interface OnDeleteEvent {
@@ -42,6 +43,7 @@ export interface ListHeader {
     | 'address';
 
   filterData?: [];
+  templatePath?: string[] | string;
   pipes?: pipe[];
   colorize?: Partial<Record<Colors, ColorType>>;
   colorizeStyle?: {
@@ -75,6 +77,8 @@ export interface ListCaptionConfig {
   refreshData?: boolean;
   expanded?: expanded | null;
   addButton?: any;
+  sort?:boolean;
+  trAccordion?: boolean;
   imgPopUp?: boolean;
   selectionType?: 'single' | 'multiple';
   summary?: {

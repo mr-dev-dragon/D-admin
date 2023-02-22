@@ -1,138 +1,150 @@
+
+<div class="table_container">
 <div class="body">
+
   <main class="s-t-main">
     <section class="s-t-header">
-      <div class="header-container">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="w-6 s-t-t-icon h-6"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M20.893 13.393l-1.135-1.135a2.252 2.252 0 01-.421-.585l-1.08-2.16a.414.414 0 00-.663-.107.827.827 0 01-.812.21l-1.273-.363a.89.89 0 00-.738 1.595l.587.39c.59.395.674 1.23.172 1.732l-.2.2c-.212.212-.33.498-.33.796v.41c0 .409-.11.809-.32 1.158l-1.315 2.191a2.11 2.11 0 01-1.81 1.025 1.055 1.055 0 01-1.055-1.055v-1.172c0-.92-.56-1.747-1.414-2.089l-.655-.261a2.25 2.25 0 01-1.383-2.46l.007-.042a2.25 2.25 0 01.29-.787l.09-.15a2.25 2.25 0 012.37-1.048l1.178.236a1.125 1.125 0 001.302-.795l.208-.73a1.125 1.125 0 00-.578-1.315l-.665-.332-.091.091a2.25 2.25 0 01-1.591.659h-.18c-.249 0-.487.1-.662.274a.931.931 0 01-1.458-1.137l1.411-2.353a2.25 2.25 0 00.286-.76m11.928 9.869A9 9 0 008.965 3.525m11.928 9.868A9 9 0 118.965 3.525"
-          />
-        </svg>
-        <h1 class="s-t-t-title">{{ "tible titale" | titlecase }}</h1>
-      </div>
-      <div class="header-container">
-        <button
-          type="button"
-          *ngIf="captionConfig.addButton && !captionConfig.addButton.menuItem"
-          class="button green"
-          (click)="onAdd()"
-        >
-          <i class="pi pi pi-plus s-t-h-b-icon"></i>
-        </button>
-        <div>
-          <p-tieredMenu
-            #menu
-            [model]="captionConfig.addButton.menuItem"
-            [popup]="true"
-            [appendTo]="'body'"
-          >
-          </p-tieredMenu>
-        </div>
-        <button
-          type="button"
-          *ngIf="captionConfig.clearTable"
-          class="button red"
-          (click)="showUndoDialog()"
-          [disabled]="
-            selectedItems.map ? !selectedItems.length : !selectedItems
-          "
-        >
-          <i class="pi pi pi-trash s-t-h-b-icon"></i>
-        </button>
-      </div>
-      <div class="header-container">
-        <d-filter
-          type="text-header"
-          [inData]="data"
-          [path]="'fullname'"
-          (outData)="outDataFunction($event)"
-        >
-        </d-filter>
-      </div>
-      <div class="header-container">
-        <button type="button" class="button gray" (click)="clear()">
+        <div class="header-container">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
-            class="s-t-h-b-icon"
             viewBox="0 0 24 24"
-            strokeWidth="{1.5}"
+            stroke-width="1.5"
             stroke="currentColor"
-            className="w-6 h-6"
+            class="w-6 s-t-t-icon h-6"
           >
             <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M6 13.5V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m12-3V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m-6-9V3.75m0 3.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 9.75V10.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M20.893 13.393l-1.135-1.135a2.252 2.252 0 01-.421-.585l-1.08-2.16a.414.414 0 00-.663-.107.827.827 0 01-.812.21l-1.273-.363a.89.89 0 00-.738 1.595l.587.39c.59.395.674 1.23.172 1.732l-.2.2c-.212.212-.33.498-.33.796v.41c0 .409-.11.809-.32 1.158l-1.315 2.191a2.11 2.11 0 01-1.81 1.025 1.055 1.055 0 01-1.055-1.055v-1.172c0-.92-.56-1.747-1.414-2.089l-.655-.261a2.25 2.25 0 01-1.383-2.46l.007-.042a2.25 2.25 0 01.29-.787l.09-.15a2.25 2.25 0 012.37-1.048l1.178.236a1.125 1.125 0 001.302-.795l.208-.73a1.125 1.125 0 00-.578-1.315l-.665-.332-.091.091a2.25 2.25 0 01-1.591.659h-.18c-.249 0-.487.1-.662.274a.931.931 0 01-1.458-1.137l1.411-2.353a2.25 2.25 0 00.286-.76m11.928 9.869A9 9 0 008.965 3.525m11.928 9.868A9 9 0 118.965 3.525"
             />
           </svg>
-        </button>
-        <p-multiSelect
-          *ngIf="captionConfig.displayedColumns"
-          [appendTo]="'body'"
-          [options]="columns"
-          [(ngModel)]="_selectedColumns"
-          [ngStyle]="{ marginBlock: 'auto' }"
-          [optionLabel]="'header'"
-          selectedItemsLabel="{0} columns selected"
-          [style]="{
-            minWidth: '200px',
-            borderRadius: '10px ',
-            boxShadow: 'none',
-            width: '200%',
-            padding: '2px',
-            backgroundColor: '#fff5',
-            border: '1px  solid  #fff1'
-          }"
-          placeholder="Choose Columns"
-          (onChange)="test($event)"
-        >
-        </p-multiSelect>
-      </div>
-      <div class="header-container">
-        <app-sort
-          [data]="outData"
-          [path]="'fullname'"
-          [sortByName]="true"
-          [sortByDate]="false"
-        ></app-sort>
-      </div>
-      <div class="header-container"></div>
+          <h1 class="s-t-t-title">{{ "tible titale" | titlecase }}</h1>
+        </div>
+        <div class="header-container">
+          <button
+            type="button"
+            *ngIf="captionConfig.addButton && !captionConfig.addButton.menuItem"
+            class="button green"
+            (click)="onAdd()"
+          >
+            <i class="pi pi pi-plus s-t-h-b-icon"></i>
+          </button>
+          <div>
+            <p-tieredMenu
+              #menu
+              [model]="captionConfig.addButton.menuItem"
+              [popup]="true"
+              [appendTo]="'body'"
+            >
+            </p-tieredMenu>
+          </div>
+          <button
+            type="button"
+            *ngIf="captionConfig.clearTable"
+            class="button red"
+            (click)="showUndoDialog()"
+            [disabled]="
+              selectedItems.map ? !selectedItems.length : !selectedItems
+            "
+          >
+            <i class="pi pi pi-trash s-t-h-b-icon"></i>
+          </button>
+        </div>
+        <div class="header-container">
+          <d-filter
+            type="text-header"
+            [inData]="data"
+            [path]="'fullname'"
+            (outData)="outDataFunction($event)"
+          >
+          </d-filter>
+        </div>
+        <div class="header-container">
+          <button type="button" class="button gray" (click)="clear()">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              class="s-t-h-b-icon"
+              viewBox="0 0 24 24"
+              strokeWidth="{1.5}"
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 13.5V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m12-3V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m-6-9V3.75m0 3.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 9.75V10.5"
+              />
+            </svg>
+          </button>
+          <p-multiSelect
+            *ngIf="captionConfig.displayedColumns"
+            [appendTo]="'body'"
+            [options]="columns"
+            [(ngModel)]="_selectedColumns"
+            [ngStyle]="{ marginBlock: 'auto' }"
+            [optionLabel]="'header'"
+            selectedItemsLabel="{0} columns selected"
+            [style]="{
+              minWidth: '200px',
+              borderRadius: '10px ',
+              boxShadow: 'none',
+              width: '200%',
+              padding: '2px',
+              backgroundColor: '#fff5',
+              border: '1px  solid  #fff1'
+            }"
+            placeholder="Choose Columns"
+            (onChange)="test($event)"
+          >
+          </p-multiSelect>
+        </div>
+        <div  *ngIf="captionConfig.sort" class="header-container">
+          <app-sort
+            [data]="outData"
+            [path]="'fullname'"
+            [sortByName]="true"
+            [sortByDate]="false"
+          ></app-sort>
+        </div>
+        <div class="header-container"></div>
     </section>
     <!-- </container> -->
     <section class="s-t-body">
       <table class="s-t-table">
-        <div
+
+        <div  #tableBody
           *ngIf="show_file_data"
           class="show_file_data"
           [style.top]="top + 'px'"
           [style.left]="left + 'px'"
         >
-
-        {{left}}
-          <div class="close">
-            <i
-              (click)="imageClikEvent_Close()"
-              class="pi pi-times-circle"
-              style="font-size: 2rem"
-            ></i>
-          </div>
-          <img
-            class="zoomedImg"
-            draggable="true"
-            [lazyLoad]="zoomedImagModalsrc"
-          />
+            <div class="close">
+              <i
+                (click)="imageClikEvent_Close()"
+                class="pi pi-times-circle"
+                style="font-size: 2rem"
+              ></i>
+            </div>
+            <img
+              class="zoomedImg"
+              draggable="true"
+              [lazyLoad]="zoomedImagModalsrc"
+            />
         </div>
         <thead class="s-t-thead">
           <tr class="s-t-tr">
+            <th class="s-t-th"  *ngIf="captionConfig.trAccordion ||  captionConfig.selectionType =='multiple' ">
+              <div class="s-t-th-conteainer">
+                  <ng-container *ngIf="captionConfig.selectionType =='multiple'">
+                  <!-- <p-checkbox [(ngModel)]="checked" [binary]="true" inputId="binary"></p-checkbox> -->
+                  </ng-container>
+                  <ng-container  *ngIf="captionConfig.trAccordion">
+                      <h1 class="s-t-th-label">{{'sadfsadf'| titlecase }}</h1>
+                  </ng-container>
+              </div>
+            </th>
             <th *ngFor="let col of _selectedColumns" class="s-t-th">
               <div class="s-t-th-conteainer">
                 <button
@@ -152,23 +164,23 @@
                   label="Save"
                   tooltipPosition="left"
                   pTooltip="{{
-                    (col.filterType == 'img'
-                      ? 'sort disbled in data type img'
-                      : col.filterType == 'file'
-                      ? 'sort disbled in data type file'
-                      : col.filterType == 'chips'
-                      ? 'sort disbled in data type chips'
-                      : col.filterType == 'boolean'
-                      ? 'sort disbled in data type boolean'
-                      : col.filterType == 'template'
-                      ? 'sort disbled in data type template'
-                      : col.filterType == 'phone'
-                      ? 'sort disbled in data type phone'
-                      : col.filterType == 'address'
-                      ? 'sort disbled in data type address'
-                      : col.filterType == 'multiSelect'
-                      ? 'sort disbled in data type multiSelect'
-                      : 'sort'
+                       (col.filterType == 'img'
+                        ? 'sort disbled in data type img'
+                        : col.filterType == 'file'
+                        ? 'sort disbled in data type file'
+                        : col.filterType == 'chips'
+                        ? 'sort disbled in data type chips'
+                        : col.filterType == 'boolean'
+                        ? 'sort disbled in data type boolean'
+                        : col.filterType == 'template'
+                        ? 'sort disbled in data type template'
+                        : col.filterType == 'phone'
+                        ? 'sort disbled in data type phone'
+                        : col.filterType == 'address'
+                        ? 'sort disbled in data type address'
+                        : col.filterType == 'multiSelect'
+                        ? 'sort disbled in data type multiSelect'
+                        : 'sort'
                     )
                       | titlecase
                       | translate
@@ -202,20 +214,6 @@
                       [sortByName]="true"
                       [sortByDate]="false"
                     ></app-sort>
-                    <!-- <ng-container *ngIf="col.filterType == 'boolean'">
-                                                                        </ng-container>
-                                                                        <ng-container *ngIf="col.filterType == 'chips'">
-                                                                        </ng-container>
-                                                                        <ng-container *ngIf="col.filterType == 'date'">
-                                                                        </ng-container>
-                                                                        <ng-container *ngIf="col.filterType == 'file'">
-                                                                        </ng-container>
-                                                                        <ng-container *ngIf="col.filterType == 'numeric'">
-                                                                        </ng-container>
-                                                                        <ng-container *ngIf="col.filterType == 'template'">
-                                                                        </ng-container>
-                                                                        <ng-container *ngIf="col.filterType == 'text'">
-                                                                        </ng-container> -->
                   </ng-template>
                 </p-overlayPanel>
                 <p-overlayPanel
@@ -333,7 +331,6 @@
     | 'phone'
     | 'email'
     | 'address'
-
     | 'range'
     | 'doubleRange' -->
                   </ng-template>
@@ -382,16 +379,105 @@
             #tableBody
             *ngFor="let rowData of outData | paginate : o_config; let o = index"
             class="s-t-tbody"
-          >
+            >
             <tr [ngClass]="outData[rowData] ? 'hide' : ''" class="s-t-tr">
-              <td
+             <td  *ngIf="captionConfig.trAccordion ||  captionConfig.selectionType =='multiple' ">
+
+        <div style="
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          ">
+                <ng-container     *ngIf="captionConfig.selectionType =='multiple'">
+                       <!-- <p-checkbox [(ngModel)]="checked" [binary]="true" inputId="a"></p-checkbox> -->
+                </ng-container>
+                <ng-container  *ngIf="captionConfig.trAccordion">
+
+          <!-- <p-tableCheckbox  [value]="rowData"></p-tableCheckbox> -->
+
+          <button (click)="accorditoinTableRowBtnIconF(rowData._id )" type="button" style="margin-left: 20px"type="button"
+
+            class="button info  "
+           >
+
+           <i [ngClass]="
+             accorditoinTableRowBtnIcon===true ?    ' s-t-h-b-icon  active  pi pi-chevron-down'
+             :accorditoinTableRowBtnIcon===false ?  ' s-t-h-b-icon  not-active  pi pi pi-chevron-up'
+             :accorditoinTableRowBtnIcon===null ?   ' s-t-h-b-icon pi pi pi-chevron-right':'pi pi-chevron-up'"></i>
+          </button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </ng-container>
+                 </div>
+             </td>
+            <td
                 *ngFor="let col of _selectedColumns; let p = index"
                 class="s-t-td"
               >
                 <!-- <span class="p-column-title">{{ col?.header }}</span> -->
                 <div class="s-next">
                   <ng-container *ngIf="col.filterType == 'img'">
-
                     <img
                       (mouseenter)="
                         imageClikEvent(rowData[col.field], o, $event)
@@ -401,7 +487,6 @@
                         '../../../../../../assets/images/logo/defaultImage.png'
                       "
                     />
-
                     <img
                       class="zoomedImg"
                       *ngIf="zoomedImag && o == zoomedImagindex"
@@ -427,7 +512,7 @@
                     </div>
                   </ng-container>
                   <ng-container
-                    *ngIf="!['file','img', 'chips'].includes(col.filterType || '')"
+                    *ngIf="!['file','img', 'chips','multiSelect'].includes(col.filterType || '')"
                   >
                     <span
                       [class]="
@@ -447,6 +532,39 @@
                           | translate
                           | genericPipe : col.pipes
                       }}
+                    </span>
+                  </ng-container>
+                  <ng-container
+                    *ngIf="col.filterType == 'multiSelect'"
+                  >
+                    <span
+                      [class]="
+                        rowData
+                          | readDataTable : col.field
+                          | dynamicTableCellColor : col.colorize
+                      "
+                      [style]="
+                        rowData
+                          | readDataTable : col.field
+                          | dynamicTableCellColorStyle : col.colorizeStyle
+                      "
+                    >
+                      {{
+                        rowData
+                          | readDataTable :col.field
+                          | translate
+                          | genericPipe : col.pipes
+                      }}
+<!-- <ng-container *ngFor=" let i of  rowData[col.field]">
+ <ng-container *ngFor=" let k of   col.templatePath" >
+ <ng-container *ngIf="checkIfImage(i[k])">
+   <img  src="{{i[k]}}" alt="">
+ </ng-container>
+  <ng-container *ngIf="!checkIfImage(i[k])">
+ <span>{{i[k]}}</span>
+ </ng-container>
+ </ng-container>
+</ng-container> -->
                     </span>
                   </ng-container>
                 </div>
@@ -533,4 +651,5 @@
       </pagination-template>
     </section>
   </main>
+</div>
 </div>

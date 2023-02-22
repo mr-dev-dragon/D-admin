@@ -134,7 +134,8 @@ import { DateDisplayComponent } from './components/lib/others/date-input-display
     SDynamicTableV2Component,
   ],
   imports: [
-  SplitButtonModule,
+    CheckboxModule,
+    SplitButtonModule,
     NgxPaginationModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
@@ -197,7 +198,7 @@ import { DateDisplayComponent } from './components/lib/others/date-input-display
     TieredMenuModule,
   ],
   exports: [
-  DateDisplayComponent,
+    DateDisplayComponent,
     SDynamicTableV2Component,
     DTableComponent,
     CustomTemplateExampleComponent,
